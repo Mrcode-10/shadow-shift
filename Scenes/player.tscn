@@ -182,7 +182,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"attack",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -205,7 +205,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"death",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -230,7 +230,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"hurt",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -287,7 +287,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"run_attack",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -316,7 +316,7 @@ animations = [{
 }],
 "loop": 1,
 "name": &"running",
-"speed": 5.0
+"speed": 10.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qpa8y"]
@@ -329,8 +329,10 @@ script = ExtResource("1_cvnsp")
 
 [node name="PlayerAnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=701313364]
 sprite_frames = SubResource("SpriteFrames_gtiic")
-animation = &"fall"
+animation = &"attack"
 autoplay = "idle"
+frame = 5
+frame_progress = 1.0
 
 [node name="PlayerCollisionShape2D" type="CollisionShape2D" parent="." unique_id=1773535824]
 position = Vector2(0, -2)

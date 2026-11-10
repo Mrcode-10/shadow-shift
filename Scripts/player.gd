@@ -9,6 +9,14 @@ var state : STATE = STATE.IDLE
 @export var jump_velocity : float = -400.0
 @onready var animation_sprite : AnimatedSprite2D = $PlayerAnimatedSprite2D
 
+func _ready() -> void:
+	# connect signals to player after simple check connectins
+	if not PlayerManager.player_death_signal.is_connected(player_death_function) :
+		PlayerManager.player_death_signal.connect(player_death_function)
+	
+	if not PlayerManager.player_get_hurt_signal.is_connected(player_get_hurt_function) :
+		PlayerManager.player_get_hurt_signal.connect(player_get_hurt_function)
+
 func _physics_process(delta: float) -> void:
 	update_flip_h()
 		
@@ -17,6 +25,7 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 		
 	if state == STATE.ATTACK or state == STATE.HURT :
+		velocity.x = 0
 		move_and_slide()
 		return
 
@@ -112,8 +121,16 @@ func _unhandled_input(event: InputEvent) -> void:
 		else : 
 			change_state(STATE.RUN_ATTACK)
 		
-
+	# TEST
+	if event.is_action_pressed("TEST_HURT") :
+		PlayerManager.decrease_health(10)
 
 func _on_player_animated_sprite_2d_animation_finished() -> void:
-	if animation_sprite.animation == "attack" or animation_sprite.animation == "run_attack":
+	if animation_sprite.animation == "attack" or animation_sprite.animation == "run_attack" or animation_sprite.animation == "hurt":
 		update_animation()
+
+func player_get_hurt_function() -> void :
+	change_state(STATE.HURT)
+	
+func player_death_function() -> void :
+	pass
