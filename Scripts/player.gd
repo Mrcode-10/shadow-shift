@@ -22,11 +22,22 @@ func _ready() -> void:
 	if not PlayerManager.player_get_hurt_signal.is_connected(player_get_hurt_function) :
 		PlayerManager.player_get_hurt_signal.connect(player_get_hurt_function)
 		
+	# connect signals to player
+	if not coyote_jump_timer.timeout.is_connected(coyote_jump_timer_timeout) :
+		coyote_jump_timer.timeout.connect(coyote_jump_timer_timeout)
+	if not hard_landing_timer.timeout.is_connected(hard_landing_timer_timeout) :
+		hard_landing_timer.timeout.connect(hard_landing_timer_timeout)
+		
 	# set timers wait timer
 	hard_landing_timer.wait_time = hard_landing_time_number
 
 func _physics_process(delta: float) -> void:
 	update_flip_h()
+	
+	if state == STATE.DEATH :
+		velocity.x = 0
+		move_and_slide()
+		return
 		
 	# Add the gravity.
 	if not is_on_floor():
@@ -37,7 +48,7 @@ func _physics_process(delta: float) -> void:
 	
 	else :
 		# Landing handle
-		if can_player_hard_landing :
+		if can_player_hard_landing and state != STATE.DEATH and state != STATE.HURT :
 			change_state(STATE.LAND)
 			can_player_hard_landing = false
 			
@@ -166,6 +177,10 @@ func _on_player_animated_sprite_2d_animation_finished() -> void:
 
 func player_get_hurt_function() -> void :
 	change_state(STATE.HURT)
+	can_player_hard_landing = false
+	# DEBUG
+	if OS.is_debug_build() :
+		print("player can has hard landing = " + str(can_player_hard_landing))
 	
 func player_death_function() -> void :
 	pass

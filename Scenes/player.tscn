@@ -338,7 +338,6 @@ height = 22.0
 [node name="PlayerCharacterBody2D" type="CharacterBody2D" unique_id=264225744]
 scale = Vector2(3, 3)
 script = ExtResource("1_cvnsp")
-hard_landing_time_number = 3.0
 
 [node name="PlayerAnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=701313364]
 sprite_frames = SubResource("SpriteFrames_gtiic")

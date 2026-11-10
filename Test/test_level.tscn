@@ -21,5 +21,19 @@ position = Vector2(61, 219.5)
 scale = Vector2(5.38, 1.0546875)
 texture = ExtResource("1_sgx7r")
 
+[node name="StaticBody2D2" type="StaticBody2D" parent="." unique_id=1534347176]
+position = Vector2(1468, 711)
+scale = Vector2(2, 2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2" unique_id=848952865]
+position = Vector2(50.329994, 223)
+scale = Vector2(5.38, 1)
+shape = SubResource("RectangleShape2D_gtiic")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D2" unique_id=2061683160]
+position = Vector2(61, 219.5)
+scale = Vector2(5.38, 1.0546875)
+texture = ExtResource("1_sgx7r")
+
 [node name="PlayerCharacterBody2D" parent="." unique_id=264225744 instance=ExtResource("2_dmxo2")]
 position = Vector2(46, 125)
