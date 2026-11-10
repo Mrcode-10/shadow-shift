@@ -7,6 +7,8 @@ enum STATE {
 var can_jump : bool = true
 var can_player_hard_landing : bool = false
 var state : STATE = STATE.IDLE
+var is_player_dead : bool = false
+@export var reload_time : float = 3
 @export var speed : float = 300.0
 @export var jump_velocity : float = -400.0
 @export var hard_landing_time_number : float = 0.5
@@ -34,7 +36,11 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	update_flip_h()
 	
-	if state == STATE.DEATH :
+	if is_player_dead :
+		if is_on_floor() :
+			change_state(STATE.DEATH)
+		else :
+			velocity += get_gravity() * delta
 		velocity.x = 0
 		move_and_slide()
 		return
@@ -160,7 +166,7 @@ func update_flip_h() -> void :
 	
 func _unhandled_input(event: InputEvent) -> void:
 	# Handle player input actions
-	if event.is_action_pressed("attack") and state != STATE.DEATH and state != STATE.HURT :
+	if event.is_action_pressed("attack") and not is_player_dead and state != STATE.HURT :
 		if abs(velocity.x) < 0.1 :
 			change_state(STATE.ATTACK)
 		
@@ -172,9 +178,17 @@ func _unhandled_input(event: InputEvent) -> void:
 		PlayerManager.decrease_health(10)
 
 func _on_player_animated_sprite_2d_animation_finished() -> void:
+	if animation_sprite.animation == "death" :
+		PlayerManager.reset()
+		await get_tree().create_timer(reload_time).timeout
+		get_tree().reload_current_scene()
+	
+	if is_player_dead : 
+		return
+	
 	if animation_sprite.animation == "land" or animation_sprite.animation == "attack" or animation_sprite.animation == "run_attack" or animation_sprite.animation == "hurt":
 		update_animation()
-
+		
 func player_get_hurt_function() -> void :
 	change_state(STATE.HURT)
 	can_player_hard_landing = false
@@ -183,7 +197,7 @@ func player_get_hurt_function() -> void :
 		print("player can has hard landing = " + str(can_player_hard_landing))
 	
 func player_death_function() -> void :
-	pass
+	is_player_dead = true
 	
 func coyote_jump_timer_timeout() -> void : 
 	can_jump = false
