@@ -5,11 +5,13 @@ enum STATE {
 }
 
 var can_jump : bool = true
-var can_player_land : bool = false
+var can_player_hard_landing : bool = false
 var state : STATE = STATE.IDLE
 @export var speed : float = 300.0
 @export var jump_velocity : float = -400.0
+@export var hard_landing_time_number : float = 0.5
 @onready var animation_sprite : AnimatedSprite2D = $PlayerAnimatedSprite2D
+@onready var hard_landing_timer : Timer = $Timers/HardLandingTimer
 @onready var coyote_jump_timer : Timer = $Timers/CoyoteJumpTimer
 
 func _ready() -> void:
@@ -19,6 +21,9 @@ func _ready() -> void:
 	
 	if not PlayerManager.player_get_hurt_signal.is_connected(player_get_hurt_function) :
 		PlayerManager.player_get_hurt_signal.connect(player_get_hurt_function)
+		
+	# set timers wait timer
+	hard_landing_timer.wait_time = hard_landing_time_number
 
 func _physics_process(delta: float) -> void:
 	update_flip_h()
@@ -32,13 +37,15 @@ func _physics_process(delta: float) -> void:
 	
 	else :
 		# Landing handle
-		if can_player_land :
+		if can_player_hard_landing :
 			change_state(STATE.LAND)
-			can_player_land = false
+			can_player_hard_landing = false
 			
 			if OS.is_debug_build() :
 				print("player landing")
-				
+		if not hard_landing_timer.is_stopped() :
+			hard_landing_timer.stop()
+						
 		if not coyote_jump_timer.is_stopped() :
 			coyote_jump_timer.stop()
 		can_jump = true
@@ -123,7 +130,8 @@ func update_animation() -> void :
 	else :
 		if velocity.y > 0 :
 			change_state(STATE.FALL)
-			can_player_land = true
+			if hard_landing_timer.is_stopped() :
+				hard_landing_timer.start()
 			
 		else :
 			change_state(STATE.JUMP)
@@ -164,3 +172,6 @@ func player_death_function() -> void :
 	
 func coyote_jump_timer_timeout() -> void : 
 	can_jump = false
+
+func hard_landing_timer_timeout() -> void :
+	can_player_hard_landing = true
