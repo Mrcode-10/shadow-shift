@@ -2,7 +2,7 @@ extends Node
 
 var invincibility_frames_time : float = 0.5
 
-var player_alive : bool = false
+var player_alive : bool = true
 
 var player_can_get_damage : bool = true
 
@@ -24,7 +24,7 @@ var playing_time : float = 0.0 :
 
 func decrease_health(value : float ) -> void :
 	if player_can_get_damage and player_alive :
-		health = max(0 , health - value)
+		health = maxf(0 , health - value)
 		if health == 0 :
 			player_death_signal.emit()
 			player_alive = false
@@ -39,7 +39,7 @@ func decrease_health(value : float ) -> void :
 		invincibility_frames()
 	
 func increase_health(value : float) -> void :
-	health = min(health + value , 100)
+	health = minf(health + value , 100)
 	
 func increase_killed_enemy_number() -> void : 
 	killed_enemy_number += 1
@@ -55,7 +55,7 @@ func reset() -> void :
 	player_can_get_damage = true
 
 func  invincibility_frames() -> void :
-	#  Add a short invincibility window after taking damage with tween
+	#  Add a short invincibility window after taking damage 
 	await get_tree().create_timer(invincibility_frames_time).timeout
 	player_can_get_damage = true
 	# DEBUG
