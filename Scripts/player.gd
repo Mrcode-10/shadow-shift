@@ -4,10 +4,12 @@ enum STATE {
 	IDLE , RUNNING , RUN_ATTACK , DEATH , HURT , ATTACK , JUMP , FALL
 }
 
+var can_jump : bool = true
 var state : STATE = STATE.IDLE
 @export var speed : float = 300.0
 @export var jump_velocity : float = -400.0
 @onready var animation_sprite : AnimatedSprite2D = $PlayerAnimatedSprite2D
+@onready var coyote_jump_timer : Timer = $Timers/CoyoteJumpTimer
 
 func _ready() -> void:
 	# connect signals to player after simple check connectins
@@ -23,6 +25,14 @@ func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+		# coytote jump
+		if coyote_jump_timer.is_stopped() :
+			coyote_jump_timer.start()
+	
+	else :
+		if not coyote_jump_timer.is_stopped() :
+			coyote_jump_timer.stop()
+		can_jump = true
 		
 	if state == STATE.ATTACK or state == STATE.HURT :
 		velocity.x = 0
@@ -30,8 +40,9 @@ func _physics_process(delta: float) -> void:
 		return
 
 	# Handle jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor():
+	if Input.is_action_just_pressed("jump") and can_jump:
 		velocity.y = jump_velocity
+		can_jump = false
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -134,3 +145,6 @@ func player_get_hurt_function() -> void :
 	
 func player_death_function() -> void :
 	pass
+	
+func coyote_jump_timer_timeout() -> void : 
+	can_jump = false
