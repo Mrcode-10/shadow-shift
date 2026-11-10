@@ -95,6 +95,10 @@ region = Rect2(192, 96, 48, 48)
 atlas = ExtResource("1_v0iea")
 region = Rect2(96, 144, 48, 48)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_xwi16"]
+atlas = ExtResource("1_v0iea")
+region = Rect2(240, 144, 48, 48)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_wpjfl"]
 atlas = ExtResource("1_v0iea")
 region = Rect2(0, 0, 48, 48)
@@ -262,6 +266,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_xwi16")
+}],
+"loop": 0,
+"name": &"land",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_wpjfl")
 }, {
 "duration": 1.0,
@@ -329,10 +341,8 @@ script = ExtResource("1_cvnsp")
 
 [node name="PlayerAnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=701313364]
 sprite_frames = SubResource("SpriteFrames_gtiic")
-animation = &"attack"
+animation = &"land"
 autoplay = "idle"
-frame = 5
-frame_progress = 1.0
 
 [node name="PlayerCollisionShape2D" type="CollisionShape2D" parent="." unique_id=1773535824]
 position = Vector2(0, -2)
