@@ -168,7 +168,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			change_state(STATE.RUN_ATTACK)
 		
 	# TEST
-	if event.is_action_pressed("TEST_HURT") :
+	if event.is_action_pressed("TEST_HURT") and OS.is_debug_build() :
 		PlayerManager.decrease_health(10)
 
 func _on_player_animated_sprite_2d_animation_finished() -> void:
