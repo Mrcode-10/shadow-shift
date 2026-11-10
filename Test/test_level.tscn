@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://b3mb13u0qtydg" path="res://Scenes/player.tscn" id="2_dmxo2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gtiic"]
-size = Vector2(136, 138)
+size = Vector2(132.03345, 138)
 
 [node name="Node2D" type="Node2D" unique_id=1134446882]
 
@@ -12,13 +12,13 @@ size = Vector2(136, 138)
 scale = Vector2(2, 2)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=968628391]
-position = Vector2(61, 223)
+position = Vector2(50.329994, 223)
 scale = Vector2(5.38, 1)
 shape = SubResource("RectangleShape2D_gtiic")
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D" unique_id=1455299304]
-position = Vector2(61, 223)
-scale = Vector2(5.38, 1)
+position = Vector2(61, 219.5)
+scale = Vector2(5.38, 1.0546875)
 texture = ExtResource("1_sgx7r")
 
 [node name="PlayerCharacterBody2D" parent="." unique_id=264225744 instance=ExtResource("2_dmxo2")]

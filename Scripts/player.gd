@@ -1,10 +1,11 @@
 extends CharacterBody2D
 
 enum STATE {
-	IDLE , RUNNING , RUN_ATTACK , DEATH , HURT , ATTACK , JUMP , FALL
+	IDLE , RUNNING , RUN_ATTACK , DEATH , HURT , ATTACK , JUMP , FALL , LAND
 }
 
 var can_jump : bool = true
+var can_player_land : bool = false
 var state : STATE = STATE.IDLE
 @export var speed : float = 300.0
 @export var jump_velocity : float = -400.0
@@ -30,6 +31,14 @@ func _physics_process(delta: float) -> void:
 			coyote_jump_timer.start()
 	
 	else :
+		# Landing handle
+		if can_player_land :
+			change_state(STATE.LAND)
+			can_player_land = false
+			
+			if OS.is_debug_build() :
+				print("player landing")
+				
 		if not coyote_jump_timer.is_stopped() :
 			coyote_jump_timer.stop()
 		can_jump = true
@@ -61,7 +70,7 @@ func _physics_process(delta: float) -> void:
 		
 	move_and_slide()
 	# Handle animation
-	if state == STATE.DEATH or state == STATE.RUN_ATTACK :
+	if state == STATE.DEATH or state == STATE.RUN_ATTACK or (state == STATE.LAND and direction == 0):
 		return
 	update_animation()
 
@@ -96,6 +105,12 @@ func check_state() -> void :
 		
 		STATE.JUMP :
 			animation_sprite.play("jump")
+		
+		STATE.LAND :
+			animation_sprite.play("land")
+			# DEBUG
+			if OS.is_debug_build() :
+				print("landing anmation run")
 
 func update_animation() -> void :
 	# Handle running and jump and fall and idle animation
@@ -108,6 +123,7 @@ func update_animation() -> void :
 	else :
 		if velocity.y > 0 :
 			change_state(STATE.FALL)
+			can_player_land = true
 			
 		else :
 			change_state(STATE.JUMP)
@@ -137,7 +153,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		PlayerManager.decrease_health(10)
 
 func _on_player_animated_sprite_2d_animation_finished() -> void:
-	if animation_sprite.animation == "attack" or animation_sprite.animation == "run_attack" or animation_sprite.animation == "hurt":
+	if animation_sprite.animation == "land" or animation_sprite.animation == "attack" or animation_sprite.animation == "run_attack" or animation_sprite.animation == "hurt":
 		update_animation()
 
 func player_get_hurt_function() -> void :
