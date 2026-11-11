@@ -20,8 +20,7 @@ var playing_time : float = 0.0 :
 	set(value) :
 		playing_time = value
 		change_playing_timer.emit(playing_time)
-
-
+	
 func decrease_health(value : float ) -> void :
 	if player_can_get_damage and player_alive :
 		health = maxf(0 , health - value)

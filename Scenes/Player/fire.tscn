@@ -54,7 +54,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"hit",
-"speed": 10.0
+"speed": 20.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -75,6 +75,7 @@ collision_mask = 5
 script = ExtResource("1_r0pwc")
 
 [node name="FireAnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1576165489]
+position = Vector2(-1, -5.666667)
 sprite_frames = SubResource("SpriteFrames_gtiic")
 animation = &"hit"
 autoplay = "idle"
@@ -82,7 +83,6 @@ frame = 5
 frame_progress = 1.0
 
 [node name="FireCollisionShape2D" type="CollisionShape2D" parent="." unique_id=409304265]
-position = Vector2(1, 5.3333335)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_pwe8y")
 
