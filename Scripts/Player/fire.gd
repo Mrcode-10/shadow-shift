@@ -1,3 +1,5 @@
+class_name Fire
+
 extends Area2D
 
 enum STATE {
@@ -7,15 +9,19 @@ enum STATE {
 var direction : float = 1
 var tween : Tween
 var state : STATE = STATE.IDLE
-var distance : float = 1000
-@export var animation_time : float = 3
+var distance : float = 10000
+@export var animation_time : float = 10
 @onready var animation_sprite : AnimatedSprite2D = $FireAnimatedSprite2D
 
 func _ready() -> void:
+	# BEGIN DEBUG
+	if OS.is_debug_build() :
+		print("fire")
+	# END DEBUG
+	# Animation flip_h handle
 	if direction < 0 :
 		animation_sprite.flip_h = true
 	# set distance with viewport size and create tween for fire movement
-	distance = get_viewport_rect().size.x
 	tween = create_tween()
 	tween.tween_property(
 		self , "global_position:x" ,  global_position.x + direction * distance , animation_time

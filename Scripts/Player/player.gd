@@ -8,6 +8,7 @@ var can_jump : bool = true
 var can_player_hard_landing : bool = false
 var state : STATE = STATE.IDLE
 var is_player_dead : bool = false
+var fire_file = preload("res://Scenes/Player/fire.tscn")
 @export var reload_time : float = 3
 @export var speed : float = 300.0
 @export var jump_velocity : float = -400.0
@@ -15,6 +16,8 @@ var is_player_dead : bool = false
 @onready var animation_sprite : AnimatedSprite2D = $PlayerAnimatedSprite2D
 @onready var hard_landing_timer : Timer = $Timers/HardLandingTimer
 @onready var coyote_jump_timer : Timer = $Timers/CoyoteJumpTimer
+@onready var fire_right_target : Node2D = $FireTargetNodes/FireRightTarget
+@onready var fire_left_target : Node2D = $FireTargetNodes/FireLeftTarget
 
 func _ready() -> void:
 	# connect signals to player after simple check connectins
@@ -83,6 +86,7 @@ func _physics_process(delta: float) -> void:
 	
 	# Handle stop running when player use attack
 	if direction == 0 and state == STATE.RUN_ATTACK:
+		disconnect_attack_functions_when_animation_finished()
 		update_animation()
 		# TODO
 		# finish attack
@@ -169,38 +173,89 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("attack") and not is_player_dead and state != STATE.HURT :
 		if abs(velocity.x) < 0.1 :
 			change_state(STATE.ATTACK)
+			if not animation_sprite.frame_changed.is_connected(attack_frame_changed) :
+				animation_sprite.frame_changed.connect(attack_frame_changed)
 		
 		else : 
 			change_state(STATE.RUN_ATTACK)
-		
+			if not animation_sprite.frame_changed.is_connected(run_attack_frame_changed) :
+				animation_sprite.frame_changed.connect(run_attack_frame_changed)
+
 	# TEST
 	if event.is_action_pressed("TEST_HURT") and OS.is_debug_build() :
 		PlayerManager.decrease_health(10)
 
 func _on_player_animated_sprite_2d_animation_finished() -> void:
 	if animation_sprite.animation == "death" :
-		PlayerManager.reset()
 		await get_tree().create_timer(reload_time).timeout
+		PlayerManager.reset()
 		get_tree().reload_current_scene()
-	
+		return
+		
 	if is_player_dead : 
 		return
 	
 	if animation_sprite.animation == "land" or animation_sprite.animation == "attack" or animation_sprite.animation == "run_attack" or animation_sprite.animation == "hurt":
+		disconnect_attack_functions_when_animation_finished()
 		update_animation()
 		
 func player_get_hurt_function() -> void :
 	change_state(STATE.HURT)
 	can_player_hard_landing = false
+	disconnect_attack_functions_when_get_hurt_die()
 	# DEBUG
 	if OS.is_debug_build() :
 		print("player can has hard landing = " + str(can_player_hard_landing))
 	
 func player_death_function() -> void :
 	is_player_dead = true
+	disconnect_attack_functions_when_get_hurt_die()
 	
 func coyote_jump_timer_timeout() -> void : 
 	can_jump = false
 
 func hard_landing_timer_timeout() -> void :
 	can_player_hard_landing = true
+
+func attack_frame_changed() -> void :
+	if animation_sprite.animation == "attack" and animation_sprite.frame == 2 :
+		spawn_fire()
+		# DEBUG
+		if OS.is_debug_build() :
+			print("Attack fire")
+
+func run_attack_frame_changed() -> void :
+	if animation_sprite.animation == "run_attack" and animation_sprite.frame == 4 :
+		spawn_fire()
+		# DEBUG
+		if OS.is_debug_build() :
+			print("Run attack fire")
+	
+func disconnect_attack_functions_when_animation_finished() -> void :
+	if animation_sprite.animation == "attack" and animation_sprite.frame_changed.is_connected(attack_frame_changed) :
+		animation_sprite.frame_changed.disconnect(attack_frame_changed)
+		# BEGIN DEBUG
+		if OS.is_debug_build() :
+			print("disconnected functions from player when animation finished")
+		# END DEBUG
+	elif animation_sprite.animation == "run_attack" and animation_sprite.frame_changed.is_connected(run_attack_frame_changed):
+		animation_sprite.frame_changed.disconnect(run_attack_frame_changed)
+		# BEGIN DEBUG
+		if OS.is_debug_build() :
+			print("disconnected functions from player when animation finished")
+		# END DEBUG
+		
+func disconnect_attack_functions_when_get_hurt_die() -> void :
+	if animation_sprite.frame_changed.is_connected(attack_frame_changed) :
+		animation_sprite.frame_changed.disconnect(attack_frame_changed)
+	if animation_sprite.frame_changed.is_connected(run_attack_frame_changed) :
+		animation_sprite.frame_changed.disconnect(run_attack_frame_changed)
+	# DEBUG
+	if OS.is_debug_build() :
+		print("disconnected functions from player when die or get hurt")
+
+func spawn_fire() -> void :
+	var fire : Fire = fire_file.instantiate()
+	fire.direction = -1 if animation_sprite.flip_h else 1
+	fire.global_position = fire_left_target.global_position if animation_sprite.flip_h else fire_right_target.global_position
+	get_tree().current_scene.add_child(fire)

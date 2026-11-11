@@ -3,8 +3,17 @@
 [ext_resource type="Texture2D" uid="uid://dnhg5k0ua40s5" path="res://icon.svg" id="1_sgx7r"]
 [ext_resource type="PackedScene" uid="uid://b3mb13u0qtydg" path="res://Scenes/Player/player.tscn" id="2_dmxo2"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dmxo2"]
+resource_local_to_scene = true
+size = Vector2(132.89963, 138)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ckmih"]
+resource_local_to_scene = true
+size = Vector2(16.93076, 138)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gtiic"]
-size = Vector2(132.03345, 138)
+resource_local_to_scene = true
+size = Vector2(133.82898, 138)
 
 [node name="Node2D" type="Node2D" unique_id=1134446882]
 
@@ -12,13 +21,27 @@ size = Vector2(132.03345, 138)
 scale = Vector2(2, 2)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=968628391]
-position = Vector2(50.329994, 223)
+position = Vector2(63.99997, 223)
 scale = Vector2(5.38, 1)
-shape = SubResource("RectangleShape2D_gtiic")
+shape = SubResource("RectangleShape2D_dmxo2")
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D" unique_id=1455299304]
 position = Vector2(61, 219.5)
 scale = Vector2(5.38, 1.0546875)
+texture = ExtResource("1_sgx7r")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="." unique_id=1026975359]
+position = Vector2(164, -114)
+scale = Vector2(2, 2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3" unique_id=1945017045]
+position = Vector2(256.45624, 98.5)
+scale = Vector2(5.38, 1)
+shape = SubResource("RectangleShape2D_ckmih")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D3" unique_id=1313253027]
+position = Vector2(255.34, 98.500015)
+scale = Vector2(0.611875, 1.0546875)
 texture = ExtResource("1_sgx7r")
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="." unique_id=1534347176]
@@ -26,7 +49,7 @@ position = Vector2(1468, 711)
 scale = Vector2(2, 2)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2" unique_id=848952865]
-position = Vector2(50.329994, 223)
+position = Vector2(62, 223)
 scale = Vector2(5.38, 1)
 shape = SubResource("RectangleShape2D_gtiic")
 

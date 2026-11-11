@@ -337,12 +337,15 @@ height = 22.0
 
 [node name="PlayerCharacterBody2D" type="CharacterBody2D" unique_id=264225744]
 scale = Vector2(3, 3)
+collision_layer = 2
 script = ExtResource("1_cvnsp")
 
 [node name="PlayerAnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=701313364]
 sprite_frames = SubResource("SpriteFrames_gtiic")
-animation = &"land"
+animation = &"run_attack"
 autoplay = "idle"
+frame = 4
+frame_progress = 0.16501613
 
 [node name="PlayerCollisionShape2D" type="CollisionShape2D" parent="." unique_id=1773535824]
 position = Vector2(0, -2)
@@ -358,6 +361,14 @@ one_shot = true
 process_callback = 0
 wait_time = 0.5
 one_shot = true
+
+[node name="FireTargetNodes" type="Node2D" parent="." unique_id=692163625]
+
+[node name="FireLeftTarget" type="Node2D" parent="FireTargetNodes" unique_id=1352728976]
+position = Vector2(-16.666668, -3.3333335)
+
+[node name="FireRightTarget" type="Node2D" parent="FireTargetNodes" unique_id=1258099761]
+position = Vector2(16, -3.3333335)
 
 [connection signal="animation_finished" from="PlayerAnimatedSprite2D" to="." method="_on_player_animated_sprite_2d_animation_finished"]
 [connection signal="timeout" from="Timers/CoyoteJumpTimer" to="." method="coyote_jump_timer_timeout"]
