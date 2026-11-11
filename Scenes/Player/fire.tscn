@@ -1,0 +1,90 @@
+[gd_scene format=3 uid="uid://b2rhe7pexoduc"]
+
+[ext_resource type="Script" uid="uid://bik3hawjp5562" path="res://Scripts/Player/fire.gd" id="1_r0pwc"]
+[ext_resource type="Texture2D" uid="uid://bwua4xdwen78o" path="res://Assets/craftpix/Main_Characters/Char_fire.png" id="1_wbu67"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r0pwc"]
+atlas = ExtResource("1_wbu67")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7y758"]
+atlas = ExtResource("1_wbu67")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n1kh0"]
+atlas = ExtResource("1_wbu67")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sssi6"]
+atlas = ExtResource("1_wbu67")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mvah8"]
+atlas = ExtResource("1_wbu67")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hjh8s"]
+atlas = ExtResource("1_wbu67")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_voovs"]
+atlas = ExtResource("1_wbu67")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gtiic"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r0pwc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7y758")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n1kh0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sssi6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mvah8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hjh8s")
+}],
+"loop": 0,
+"name": &"hit",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_voovs")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pwe8y"]
+radius = 1.6666665
+height = 9.333333
+
+[node name="FireArea2D" type="Area2D" unique_id=1713699173]
+scale = Vector2(3, 3)
+collision_mask = 5
+script = ExtResource("1_r0pwc")
+
+[node name="FireAnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1576165489]
+sprite_frames = SubResource("SpriteFrames_gtiic")
+animation = &"hit"
+autoplay = "idle"
+frame = 5
+frame_progress = 1.0
+
+[node name="FireCollisionShape2D" type="CollisionShape2D" parent="." unique_id=409304265]
+position = Vector2(1, 5.3333335)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_pwe8y")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="animation_finished" from="FireAnimatedSprite2D" to="." method="_on_fire_animated_sprite_2d_animation_finished"]
