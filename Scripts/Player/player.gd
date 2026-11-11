@@ -70,10 +70,19 @@ func _physics_process(delta: float) -> void:
 			coyote_jump_timer.stop()
 		can_jump = true
 		
-	if state == STATE.ATTACK or state == STATE.HURT :
+	if state == STATE.HURT :
 		velocity.x = 0
 		move_and_slide()
 		return
+	
+	elif state == STATE.ATTACK :
+		if is_on_floor() :
+			velocity.x = 0
+		else :
+			velocity += get_gravity() * delta
+		move_and_slide()
+		return
+	
 
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and can_jump:
@@ -171,16 +180,26 @@ func update_flip_h() -> void :
 func _unhandled_input(event: InputEvent) -> void:
 	# Handle player input actions
 	if event.is_action_pressed("attack") and not is_player_dead and state != STATE.HURT :
-		if abs(velocity.x) < 0.1 :
-			change_state(STATE.ATTACK)
-			if not animation_sprite.frame_changed.is_connected(attack_frame_changed) :
-				animation_sprite.frame_changed.connect(attack_frame_changed)
-		
-		else : 
+		# BEGIN DEBUG
+		if OS.is_debug_build() :
+			print("Preesed attack button")
+		# END DEBUG
+		if abs(velocity.x) > 0.1 and is_on_floor():
 			change_state(STATE.RUN_ATTACK)
 			if not animation_sprite.frame_changed.is_connected(run_attack_frame_changed) :
 				animation_sprite.frame_changed.connect(run_attack_frame_changed)
-
+			# BEGIN DEBUG
+			if OS.is_debug_build() :
+				print("State changed to run attack")
+		# END DEBUG
+		else : 
+			change_state(STATE.ATTACK)
+			if not animation_sprite.frame_changed.is_connected(attack_frame_changed) :
+				animation_sprite.frame_changed.connect(attack_frame_changed)
+			# BEGIN DEBUG
+			if OS.is_debug_build() :
+				print("State changed to attack")
+			# END DEBUG
 	# TEST
 	if event.is_action_pressed("TEST_HURT") and OS.is_debug_build() :
 		PlayerManager.decrease_health(10)

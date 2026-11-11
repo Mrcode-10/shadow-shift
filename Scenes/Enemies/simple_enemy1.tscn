@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://qr5hqk5jd53y"]
 
+[ext_resource type="Script" uid="uid://cot4lvd0poe05" path="res://Scripts/Enemies/simple_enemy_1.gd" id="1_65ks8"]
 [ext_resource type="Texture2D" uid="uid://dl8mnk0vhre7t" path="res://Assets/craftpix/Enemies/Alien2.png" id="1_v547w"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_65ks8"]
@@ -228,6 +229,7 @@ height = 16.666666
 
 [node name="EnemyCharacterBody2D" type="CharacterBody2D" unique_id=669891633]
 scale = Vector2(3, 3)
+script = ExtResource("1_65ks8")
 
 [node name="EnemyAnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1548820235]
 sprite_frames = SubResource("SpriteFrames_gtiic")
