@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b3mb13u0qtydg"]
 
-[ext_resource type="Script" uid="uid://cffc2yhk43qs1" path="res://Scripts/player.gd" id="1_cvnsp"]
+[ext_resource type="Script" uid="uid://cffc2yhk43qs1" path="res://Scripts/Player/player.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://cxujga5nlcek2" path="res://Assets/craftpix/Main_Characters/Char_Robot.png" id="1_v0iea"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cvnsp"]
