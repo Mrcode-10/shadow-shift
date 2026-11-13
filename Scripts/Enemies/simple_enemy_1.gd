@@ -6,6 +6,7 @@ enum STATE {
 	IDLE , HURT , FALL , JUMP , RUN , DEATH , ATTACK
 }
 
+var fire_file = preload("res://Scenes/Enemies/SimpleEnemy1Fire.tscn")
 @export var health : float = 40
 @export var damage : float = 10
 var state : STATE = STATE.IDLE
@@ -20,7 +21,19 @@ var is_player_entered : bool = false
 var is_invulnerable_or_dead : bool = false 
 @onready var collision_shape : CollisionShape2D = $EnemyCollisionShape2D
 @export var can_chase_player : bool = false
+@onready var timer_attack : Timer = $TimerNodes/AttackTimer
+@export var attack_timer : float = 2
 var player : Node2D
+var is_player_in_area_left : bool = false
+var is_player_in_area_right : bool = false
+@onready var target_left : Node2D = $TargetNodes/TargetLeft
+@onready var target_right : Node2D = $TargetNodes/TargetRight
+@export var first_attack_delay : float = 1
+
+func _ready() -> void:
+	timer_attack.wait_time = attack_timer
+	if not timer_attack.timeout.is_connected(timer_attack_timeout) :
+		timer_attack.timeout.connect(timer_attack_timeout)
 
 func _physics_process(delta: float) -> void:
 	velocity.x = 0
@@ -58,7 +71,7 @@ func change_state(new_state : STATE) -> void:
 		match_state()
 		
 func update_animation() -> void :
-	if state == STATE.HURT :
+	if state == STATE.HURT or state==STATE.ATTACK:
 		return
 	# Animation Handle
 	if is_on_floor() :
@@ -89,7 +102,10 @@ func match_state() -> void:
 		
 		STATE.HURT :
 			sprite_animation.play("hurt")
-		
+			if not timer_attack.is_stopped() :
+				timer_attack.paused = true
+				#timer_attack.stop()
+				
 		STATE.FALL :
 			sprite_animation.play("fall")
 		
@@ -116,13 +132,13 @@ func _on_wake_up_area_2d_body_entered(body: Node2D) -> void:
 	is_player_entered = true
 	change_state(STATE.RUN)
 
-func take_damage(damage:float) -> void :
+func take_damage(damage_number:float) -> void :
 	# DEBUG BEGIN
 	if OS.is_debug_build():
 		print("Enemy get damage from player : enemy side")
 	# DEBUG END
 	if not is_invulnerable_or_dead :
-		health = maxf(health-damage,0)
+		health = maxf(health-damage_number,0)
 		# Death handle
 		if health == 0 :
 			death()
@@ -139,10 +155,17 @@ func death() -> void :
 func _on_enemy_animated_sprite_2d_animation_finished() -> void:
 	if sprite_animation.animation == "hurt" :
 		is_invulnerable_or_dead = false
+		if is_player_in_area_left or is_player_in_area_right :
+			timer_attack.paused = false
+			#timer_attack.start()
 		change_state(STATE.RUN)
 		update_animation()
 	elif sprite_animation.animation == "death" :
 		queue_free()
+	
+	elif sprite_animation.animation == "attack" :
+		change_state(STATE.RUN)
+		update_animation()
 
 
 func chase_player() -> void :
@@ -159,3 +182,77 @@ func _on_wake_up_area_2d_body_exited(body: Node2D) -> void:
 		player = null
 		is_player_entered = false
 		change_state(STATE.IDLE)
+
+func attack() -> void :
+	# Attack handle
+	if is_player_in_area_left and sprite_animation.flip_h :
+		spawn_fire(-1 , target_left)
+	
+	if is_player_in_area_right and not sprite_animation.flip_h :
+		spawn_fire(1 , target_right)
+
+func spawn_fire(direction_value : float , target_node : Node2D) -> void :
+	var fire : SimpleEnemyFire = fire_file.instantiate()
+	fire.direction = direction_value
+	fire.global_position = target_node.global_position
+	get_tree().current_scene.add_child(fire)
+
+func timer_attack_timeout() -> void :
+	if state == STATE.HURT or state == STATE.DEATH :
+		return
+	#if 
+	change_state(STATE.ATTACK)
+	if timer_attack.is_stopped() :
+		timer_attack.start()
+
+
+func _on_area_left_body_entered(body: Node2D) -> void:
+	if body is not Player :
+		return
+	if state == STATE.DEATH or state == STATE.HURT : 
+		return
+	is_player_in_area_left = true
+	await get_tree().create_timer(first_attack_delay).timeout
+	if not is_inside_tree() and state == STATE.HURT or state == STATE.DEATH :
+		return
+	#if 
+	change_state(STATE.ATTACK)
+	if timer_attack.is_stopped() :
+		timer_attack.start()
+
+func _on_area_left_body_exited(body: Node2D) -> void:
+	if body is not Player :
+		return
+	if not timer_attack.is_stopped() and not is_player_in_area_left and not is_player_in_area_right :
+		timer_attack.stop()
+	is_player_in_area_left = false
+
+
+func _on_area_right_body_entered(body: Node2D) -> void:
+	if body is not Player :
+		return
+	if state == STATE.DEATH or state == STATE.HURT : 
+		return
+	is_player_in_area_right = true
+	await get_tree().create_timer(first_attack_delay).timeout
+	if  not is_inside_tree() and  state == STATE.DEATH or state == STATE.HURT : 
+		return
+	change_state(STATE.ATTACK)
+	if timer_attack.is_stopped() :
+		timer_attack.start()
+
+
+func _on_area_right_body_exited(body: Node2D) -> void:
+	if body is not Player :
+		return
+	if not timer_attack.is_stopped() and not is_player_in_area_left and not is_player_in_area_right :
+		timer_attack.stop()
+	is_player_in_area_right = false
+
+func _on_enemy_animated_sprite_2d_frame_changed() -> void:
+	if state == STATE.ATTACK and sprite_animation.frame == 3 :
+		attack()
+		# BEGIN DEBUG
+		if OS.is_debug_build() :
+			print("enemy attack to player")
+		# END DEBUG
