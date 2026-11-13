@@ -338,6 +338,7 @@ height = 22.0
 [node name="PlayerCharacterBody2D" type="CharacterBody2D" unique_id=264225744]
 scale = Vector2(3, 3)
 collision_layer = 2
+collision_mask = 5
 script = ExtResource("1_cvnsp")
 
 [node name="PlayerAnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=701313364]

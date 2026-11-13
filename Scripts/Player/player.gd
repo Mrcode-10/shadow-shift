@@ -173,11 +173,12 @@ func update_flip_h() -> void :
 	if velocity.x > 0.1 :
 		if animation_sprite.flip_h :
 			animation_sprite.flip_h = false
-	
+			PlayerManager.flip_h = animation_sprite.flip_h
+			
 	elif velocity.x < -0.1 :
 		if not animation_sprite.flip_h :
 			animation_sprite.flip_h = true
-	
+			PlayerManager.flip_h = animation_sprite.flip_h
 	
 func _unhandled_input(event: InputEvent) -> void:
 	# Handle player input actions

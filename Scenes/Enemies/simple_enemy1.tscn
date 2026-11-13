@@ -239,6 +239,7 @@ size = Vector2(134, 19)
 [node name="EnemyCharacterBody2D" type="CharacterBody2D" unique_id=669891633]
 scale = Vector2(3, 3)
 collision_layer = 4
+collision_mask = 3
 script = ExtResource("1_65ks8")
 
 [node name="EnemyAnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1548820235]

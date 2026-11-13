@@ -29,6 +29,8 @@ var is_player_in_area_right : bool = false
 @onready var target_left : Node2D = $TargetNodes/TargetLeft
 @onready var target_right : Node2D = $TargetNodes/TargetRight
 @export var first_attack_delay : float = 1
+@export var distance : float = 100 
+var shoud_move : bool = false
 
 func _ready() -> void:
 	timer_attack.wait_time = attack_timer
@@ -42,8 +44,17 @@ func _physics_process(delta: float) -> void:
 
 	# Handle enemy movement
 	if state == STATE.RUN :
+		shoud_move = true
 		change_direction()
-		if is_on_floor() :
+		if  global_position.distance_to(player.global_position) <= distance :
+			if PlayerManager.flip_h and not sprite_animation.flip_h :
+				if global_position.x < player.global_position.x :
+					shoud_move = false
+			elif not PlayerManager.flip_h and sprite_animation.flip_h :
+				if player.global_position.x < global_position.x :
+					shoud_move = false
+				
+		if is_on_floor() and shoud_move:
 			velocity.x = speed * direction
 		
 	move_and_slide()
@@ -75,7 +86,7 @@ func update_animation() -> void :
 		return
 	# Animation Handle
 	if is_on_floor() :
-		if is_player_entered :
+		if is_player_entered and global_position.distance_to(player.global_position) > distance :
 			change_state(STATE.RUN)
 		
 		else:
@@ -127,8 +138,7 @@ func match_state() -> void:
 func _on_wake_up_area_2d_body_entered(body: Node2D) -> void:
 	if body is not Player :
 		return
-	if can_chase_player :
-		player = body
+	player = body
 	is_player_entered = true
 	change_state(STATE.RUN)
 
@@ -213,7 +223,7 @@ func _on_area_left_body_entered(body: Node2D) -> void:
 		return
 	is_player_in_area_left = true
 	await get_tree().create_timer(first_attack_delay).timeout
-	if not is_inside_tree() and state == STATE.HURT or state == STATE.DEATH :
+	if not is_inside_tree() or state == STATE.HURT or state == STATE.DEATH :
 		return
 	#if 
 	change_state(STATE.ATTACK)
@@ -235,7 +245,7 @@ func _on_area_right_body_entered(body: Node2D) -> void:
 		return
 	is_player_in_area_right = true
 	await get_tree().create_timer(first_attack_delay).timeout
-	if  not is_inside_tree() and  state == STATE.DEATH or state == STATE.HURT : 
+	if  not is_inside_tree() or  state == STATE.DEATH or state == STATE.HURT : 
 		return
 	change_state(STATE.ATTACK)
 	if timer_attack.is_stopped() :
