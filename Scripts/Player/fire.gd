@@ -11,6 +11,7 @@ var tween : Tween
 var state : STATE = STATE.IDLE
 var distance : float = 10000
 @export var animation_time : float = 10
+@export var damage : float = 20
 @onready var animation_sprite : AnimatedSprite2D = $FireAnimatedSprite2D
 
 func _ready() -> void:
@@ -51,9 +52,17 @@ func _on_fire_animated_sprite_2d_animation_finished() -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
-	# TODO
-	# add a simple check for know body is enemy
-	# aplly damage to enemy
+	# Apply damage to enemy and animation handle
+	if body.has_method("take_damage") :
+		body.take_damage(damage)
+		# DEBUG BEGIN
+		if OS.is_debug_build() :
+			print("Enemy get damage from player : player side")
+		# DEBUG END
+	# DEBUG BEGIN
+	if OS.is_debug_build() :
+		print("fire hit something!")
+	# DEBUG END
 	if state == STATE.HIT :
 		return
 	if tween :

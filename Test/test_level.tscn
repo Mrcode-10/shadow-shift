@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dnhg5k0ua40s5" path="res://icon.svg" id="1_sgx7r"]
 [ext_resource type="PackedScene" uid="uid://b3mb13u0qtydg" path="res://Scenes/Player/player.tscn" id="2_dmxo2"]
+[ext_resource type="PackedScene" uid="uid://qr5hqk5jd53y" path="res://Scenes/Enemies/simple_enemy1.tscn" id="3_ckmih"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dmxo2"]
 resource_local_to_scene = true
@@ -60,3 +61,6 @@ texture = ExtResource("1_sgx7r")
 
 [node name="PlayerCharacterBody2D" parent="." unique_id=264225744 instance=ExtResource("2_dmxo2")]
 position = Vector2(46, 125)
+
+[node name="EnemyCharacterBody2D" parent="." unique_id=669891633 instance=ExtResource("3_ckmih")]
+position = Vector2(1503, 966)

@@ -1,5 +1,7 @@
 extends Node
 
+var player_damage : float = 20
+
 var invincibility_frames_time : float = 0.5
 
 var player_alive : bool = true

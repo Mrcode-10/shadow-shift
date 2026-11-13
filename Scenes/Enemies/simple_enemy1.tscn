@@ -159,7 +159,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_bwc23")
 }],
-"loop": 0,
+"loop": 1,
 "name": &"fall",
 "speed": 10.0
 }, {
@@ -224,21 +224,24 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wbc82"]
-radius = 3.3333335
+radius = 6.333334
 height = 16.666666
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pwe8y"]
+size = Vector2(364.66666, 138.66667)
 
 [node name="EnemyCharacterBody2D" type="CharacterBody2D" unique_id=669891633]
 scale = Vector2(3, 3)
+collision_layer = 4
 script = ExtResource("1_65ks8")
 
 [node name="EnemyAnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1548820235]
 sprite_frames = SubResource("SpriteFrames_gtiic")
-animation = &"idle"
+animation = &"hurt"
 autoplay = "idle"
-frame = 1
-frame_progress = 0.6501746
+metadata/_edit_lock_ = true
 
-[node name="EnenmyCollisionShape2D" type="CollisionShape2D" parent="." unique_id=2102822208]
+[node name="EnemyCollisionShape2D" type="CollisionShape2D" parent="." unique_id=2102822208]
 position = Vector2(-1.6666667, 5.6666665)
 shape = SubResource("CapsuleShape2D_wbc82")
 
@@ -246,11 +249,11 @@ shape = SubResource("CapsuleShape2D_wbc82")
 
 [node name="RayCastRightBottom" type="RayCast2D" parent="RayCastsNode2D" unique_id=2018886679]
 position = Vector2(1.6666666, 0)
-target_position = Vector2(0, 18)
+target_position = Vector2(0, 16.666668)
 
 [node name="RayCastLeftBottom" type="RayCast2D" parent="RayCastsNode2D" unique_id=646802082]
 position = Vector2(-5, 0)
-target_position = Vector2(0.333, 18)
+target_position = Vector2(0.33333302, 16.666668)
 
 [node name="RayCastRight" type="RayCast2D" parent="RayCastsNode2D" unique_id=1930470831]
 position = Vector2(0, 5.666667)
@@ -259,3 +262,17 @@ target_position = Vector2(9, 0)
 [node name="RayCastLeft" type="RayCast2D" parent="RayCastsNode2D" unique_id=1751230971]
 position = Vector2(0, 5.666667)
 target_position = Vector2(-9, 0.333)
+
+[node name="WakeUpArea2D" type="Area2D" parent="." unique_id=1287006640]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WakeUpArea2D" unique_id=2025384557]
+position = Vector2(1.6666667, 0)
+shape = SubResource("RectangleShape2D_pwe8y")
+
+[node name="TimerNodes" type="Node" parent="." unique_id=2141312513]
+
+[node name="IFrameTimer" type="Timer" parent="TimerNodes" unique_id=1027892908]
+
+[connection signal="animation_finished" from="EnemyAnimatedSprite2D" to="." method="_on_enemy_animated_sprite_2d_animation_finished"]
+[connection signal="body_entered" from="WakeUpArea2D" to="." method="_on_wake_up_area_2d_body_entered"]
