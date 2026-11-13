@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://b0qhwpoev5j3s"]
+
+[ext_resource type="Script" uid="uid://v0m3762jkvnq" path="res://Scripts/Enemies/simple_enemy_1fire.gd" id="1_q5eov"]
+[ext_resource type="Texture2D" uid="uid://dl8mnk0vhre7t" path="res://Assets/craftpix/Enemies/Alien2.png" id="1_yco14"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q5eov"]
+atlas = ExtResource("1_yco14")
+region = Rect2(0, 200, 32, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yco14"]
+atlas = ExtResource("1_yco14")
+region = Rect2(0, 200, 32, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ulbqn"]
+atlas = ExtResource("1_yco14")
+region = Rect2(32, 200, 32, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8fhq5"]
+atlas = ExtResource("1_yco14")
+region = Rect2(64, 200, 32, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yhcl4"]
+atlas = ExtResource("1_yco14")
+region = Rect2(96, 200, 32, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0wfqi"]
+atlas = ExtResource("1_yco14")
+region = Rect2(128, 200, 32, 50)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mfy8x"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q5eov")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yco14")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ulbqn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8fhq5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yhcl4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0wfqi")
+}],
+"loop": 0,
+"name": &"hit",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r0pwc"]
+size = Vector2(6, 1)
+
+[node name="SimpleEnemy1FireArea2D" type="Area2D" unique_id=281905724]
+scale = Vector2(3, 3)
+collision_mask = 3
+script = ExtResource("1_q5eov")
+
+[node name="SimpleEnemy1FireAnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=38874251]
+position = Vector2(1, 17)
+sprite_frames = SubResource("SpriteFrames_mfy8x")
+animation = &"hit"
+
+[node name="SimpeEnemy1FireCollisionShape2D" type="CollisionShape2D" parent="." unique_id=780571946]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_r0pwc")
