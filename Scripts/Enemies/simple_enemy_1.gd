@@ -1,25 +1,38 @@
 extends CharacterBody2D
 
+enum STATE {
+	IDLE , HURT , FALL , JUMP , RUN , DEATH , ATTACK
+}
 
-const SPEED = 300.0
-const JUMP_VELOCITY = -400.0
+var state : STATE = STATE.IDLE
+@onready var sprite_animation : AnimatedSprite2D = $EnemyAnimatedSprite2D
 
 
-func _physics_process(delta: float) -> void:
-	# Add the gravity.
-	if not is_on_floor():
-		velocity += get_gravity() * delta
+func change_state(new_state : STATE) -> void:
+	if new_state != state and state != STATE.DEATH :
+		state = new_state
+		match_state()
 
-	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+func match_state() -> void:
+	match state :
+		STATE.IDLE :
+			sprite_animation.play("idle")
+		
+		STATE.HURT :
+			sprite_animation.play("hurt")
+		
+		STATE.FALL :
+			sprite_animation.play("fall")
+		
+		STATE.JUMP :
+			sprite_animation.play("jump")
+			
+		STATE.RUN :
+			sprite_animation.play("run")
+			
+		STATE.DEATH :
+			sprite_animation.play("death")
 
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction := Input.get_axis("ui_left", "ui_right")
-	if direction:
-		velocity.x = direction * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-
-	move_and_slide()
+		STATE.ATTACK :
+			sprite_animation.play("attack")
+			

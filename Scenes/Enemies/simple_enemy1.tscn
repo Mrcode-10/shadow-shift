@@ -234,6 +234,9 @@ script = ExtResource("1_65ks8")
 [node name="EnemyAnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1548820235]
 sprite_frames = SubResource("SpriteFrames_gtiic")
 animation = &"idle"
+autoplay = "idle"
+frame = 1
+frame_progress = 0.6501746
 
 [node name="EnenmyCollisionShape2D" type="CollisionShape2D" parent="." unique_id=2102822208]
 position = Vector2(-1.6666667, 5.6666665)
