@@ -280,3 +280,6 @@ func spawn_fire() -> void :
 	fire.direction = -1 if animation_sprite.flip_h else 1
 	fire.global_position = fire_left_target.global_position if animation_sprite.flip_h else fire_right_target.global_position
 	get_tree().current_scene.add_child(fire)
+
+func take_damage_for_player(damage : float) -> void :
+	PlayerManager.decrease_health(damage)
