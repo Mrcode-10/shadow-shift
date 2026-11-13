@@ -8,6 +8,8 @@ var player_alive : bool = true
 
 var player_can_get_damage : bool = true
 
+var flip_h = false
+
 var health : float = 100 :
 	set(value) :
 		health = value
