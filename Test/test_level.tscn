@@ -64,3 +64,4 @@ position = Vector2(46, 125)
 
 [node name="EnemyCharacterBody2D" parent="." unique_id=669891633 instance=ExtResource("3_ckmih")]
 position = Vector2(1503, 966)
+can_chase_player = true

@@ -69,3 +69,4 @@ func _on_body_entered(body: Node2D) -> void:
 		tween.kill()
 	set_deferred("monitoring" , false )
 	change_state(STATE.HIT)
+		
