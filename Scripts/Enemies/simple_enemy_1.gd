@@ -19,6 +19,8 @@ var is_player_entered : bool = false
 @onready var raycast_right : RayCast2D = $RayCastsNode2D/RayCastRight
 var is_invulnerable_or_dead : bool = false 
 @onready var collision_shape : CollisionShape2D = $EnemyCollisionShape2D
+@export var can_chase_player : bool = false
+var player : Node2D
 
 func _physics_process(delta: float) -> void:
 	velocity.x = 0
@@ -46,6 +48,9 @@ func change_direction() -> void :
 	
 	elif raycast_right.is_colliding() or not raycast_right_bottom.is_colliding() :
 		direction = -1
+	
+	if can_chase_player and player != null :
+		chase_player()
 		
 func change_state(new_state : STATE) -> void:
 	if new_state != state and state != STATE.DEATH :
@@ -106,6 +111,8 @@ func match_state() -> void:
 func _on_wake_up_area_2d_body_entered(body: Node2D) -> void:
 	if body is not Player :
 		return
+	if can_chase_player :
+		player = body
 	is_player_entered = true
 	change_state(STATE.RUN)
 
@@ -136,3 +143,19 @@ func _on_enemy_animated_sprite_2d_animation_finished() -> void:
 		update_animation()
 	elif sprite_animation.animation == "death" :
 		queue_free()
+
+
+func chase_player() -> void :
+	if player.global_position.x > global_position.x :
+		direction = 1
+	
+	elif player.global_position.x < global_position.x :
+		direction = -1
+		
+
+
+func _on_wake_up_area_2d_body_exited(body: Node2D) -> void:
+	if body is Player :
+		player = null
+		is_player_entered = false
+		change_state(STATE.IDLE)
