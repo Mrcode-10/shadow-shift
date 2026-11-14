@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://gnt2p32aqnk3"]
+
+[ext_resource type="Texture2D" uid="uid://c7n7qso6h82yj" path="res://Assets/craftpix/GUI/GUI_Elements.png" id="1_omqfp"]
+[ext_resource type="Script" uid="uid://di41lku77sldn" path="res://Scripts/UI/hud.gd" id="1_qc5w2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l02h3"]
+atlas = ExtResource("1_omqfp")
+region = Rect2(36.256275, 84.29199, 27.93391, 28.424255)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_omqfp"]
+atlas = ExtResource("1_omqfp")
+region = Rect2(0, 52, 32, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qc5w2"]
+atlas = ExtResource("1_omqfp")
+region = Rect2(63.978, 48, 32, 16)
+
+[node name="Control" type="Control" unique_id=996028015]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qc5w2")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=611191557]
+layout_mode = 0
+offset_right = 132.0
+offset_bottom = 128.0
+theme_override_constants/margin_left = 36
+theme_override_constants/margin_top = 24
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1335947341]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="PlayerImageTextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer" unique_id=1595775872]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+texture = SubResource("AtlasTexture_l02h3")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=1833115131]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="HealthTextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=1667714531]
+custom_minimum_size = Vector2(120, 32)
+layout_mode = 2
+texture = SubResource("AtlasTexture_omqfp")
+
+[node name="PowerTextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=886150652]
+custom_minimum_size = Vector2(0, 88)
+layout_mode = 2
+texture = SubResource("AtlasTexture_qc5w2")
