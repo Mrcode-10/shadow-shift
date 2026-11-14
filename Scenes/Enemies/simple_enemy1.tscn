@@ -231,9 +231,11 @@ height = 16.666666
 size = Vector2(454.00003, 138.66667)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iri1a"]
+resource_local_to_scene = true
 size = Vector2(134, 19)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w8t04"]
+resource_local_to_scene = true
 size = Vector2(134, 19)
 
 [node name="EnemyCharacterBody2D" type="CharacterBody2D" unique_id=669891633]
@@ -285,7 +287,6 @@ shape = SubResource("RectangleShape2D_pwe8y")
 
 [node name="AttackTimer" type="Timer" parent="TimerNodes" unique_id=1580124266]
 wait_time = 3.0
-one_shot = true
 
 [node name="AreaNodes" type="Node2D" parent="." unique_id=1782646268]
 

@@ -30,7 +30,9 @@ var is_player_in_area_right : bool = false
 @onready var target_right : Node2D = $TargetNodes/TargetRight
 @export var first_attack_delay : float = 1
 @export var distance : float = 100 
-var shoud_move : bool = false
+var should_move : bool = false
+@onready var area_left : Area2D = $AreaNodes/AreaLeft
+@onready var area_right : Area2D = $AreaNodes/AreaRight
 
 func _ready() -> void:
 	timer_attack.wait_time = attack_timer
@@ -43,18 +45,18 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 
 	# Handle enemy movement
-	if state == STATE.RUN :
-		shoud_move = true
+	if state == STATE.RUN and player != null:
+		should_move = true
 		change_direction()
 		if  global_position.distance_to(player.global_position) <= distance :
 			if PlayerManager.flip_h and not sprite_animation.flip_h :
 				if global_position.x < player.global_position.x :
-					shoud_move = false
+					should_move = false
 			elif not PlayerManager.flip_h and sprite_animation.flip_h :
 				if player.global_position.x < global_position.x :
-					shoud_move = false
+					should_move = false
 				
-		if is_on_floor() and shoud_move:
+		if is_on_floor() and should_move:
 			velocity.x = speed * direction
 		
 	move_and_slide()
@@ -167,7 +169,7 @@ func _on_enemy_animated_sprite_2d_animation_finished() -> void:
 		is_invulnerable_or_dead = false
 		if is_player_in_area_left or is_player_in_area_right :
 			timer_attack.paused = false
-			#timer_attack.start()
+			timer_attack.start()
 		change_state(STATE.RUN)
 		update_animation()
 	elif sprite_animation.animation == "death" :
@@ -197,10 +199,18 @@ func attack() -> void :
 	# Attack handle
 	if is_player_in_area_left and sprite_animation.flip_h :
 		spawn_fire(-1 , target_left)
+		#DEBUG BEGIN
+		if OS.is_debug_build() :
+			print("Player in left" + " enemy flip h : " + str(sprite_animation.flip_h))
+		#DEBUG END
 	
 	if is_player_in_area_right and not sprite_animation.flip_h :
 		spawn_fire(1 , target_right)
-
+		#DEBUG BEGIN
+		if OS.is_debug_build() :
+			print("Player in right" + " enemy flip h : " + str(sprite_animation.flip_h))
+		#DEBUG END
+		
 func spawn_fire(direction_value : float , target_node : Node2D) -> void :
 	var fire : SimpleEnemyFire = fire_file.instantiate()
 	fire.direction = direction_value
@@ -210,10 +220,15 @@ func spawn_fire(direction_value : float , target_node : Node2D) -> void :
 func timer_attack_timeout() -> void :
 	if state == STATE.HURT or state == STATE.DEATH :
 		return
-	#if 
+	if is_player_in_area_left and not sprite_animation.flip_h :
+		return
+	elif is_player_in_area_right and sprite_animation.flip_h :
+		return
 	change_state(STATE.ATTACK)
-	if timer_attack.is_stopped() :
-		timer_attack.start()
+	# DEBUG BEGIN
+	if OS.is_debug_build() :
+		print("enemy attack t")
+	# DEBUG END
 
 
 func _on_area_left_body_entered(body: Node2D) -> void:
@@ -223,19 +238,26 @@ func _on_area_left_body_entered(body: Node2D) -> void:
 		return
 	is_player_in_area_left = true
 	await get_tree().create_timer(first_attack_delay).timeout
-	if not is_inside_tree() or state == STATE.HURT or state == STATE.DEATH :
+	if not is_inside_tree() or not area_left.overlaps_body(body) or state == STATE.HURT or state == STATE.DEATH or not sprite_animation.flip_h:
 		return
-	#if 
 	change_state(STATE.ATTACK)
 	if timer_attack.is_stopped() :
 		timer_attack.start()
+	# DEBUG BEGIN
+	if OS.is_debug_build() :
+		print("Player enter left area")
+	# DEBUG END
 
 func _on_area_left_body_exited(body: Node2D) -> void:
 	if body is not Player :
 		return
-	if not timer_attack.is_stopped() and not is_player_in_area_left and not is_player_in_area_right :
+	if not timer_attack.is_stopped()  :
 		timer_attack.stop()
 	is_player_in_area_left = false
+	# DEBUG BEGIN
+	if OS.is_debug_build() :
+		print("Player exited left area")
+	# DEBUG END
 
 
 func _on_area_right_body_entered(body: Node2D) -> void:
@@ -245,19 +267,26 @@ func _on_area_right_body_entered(body: Node2D) -> void:
 		return
 	is_player_in_area_right = true
 	await get_tree().create_timer(first_attack_delay).timeout
-	if  not is_inside_tree() or  state == STATE.DEATH or state == STATE.HURT : 
+	if not is_inside_tree() or not area_right.overlaps_body(body) or state == STATE.DEATH or state == STATE.HURT or sprite_animation.flip_h: 
 		return
 	change_state(STATE.ATTACK)
 	if timer_attack.is_stopped() :
 		timer_attack.start()
-
-
+	# DEBUG BEGIN
+	if OS.is_debug_build() :
+		print("Player enter right area")
+	# DEBUG END
+	
 func _on_area_right_body_exited(body: Node2D) -> void:
 	if body is not Player :
 		return
-	if not timer_attack.is_stopped() and not is_player_in_area_left and not is_player_in_area_right :
+	if not timer_attack.is_stopped() :
 		timer_attack.stop()
 	is_player_in_area_right = false
+	# DEBUG BEGIN
+	if OS.is_debug_build() :
+		print("Player exited right area")
+	# DEBUG END
 
 func _on_enemy_animated_sprite_2d_frame_changed() -> void:
 	if state == STATE.ATTACK and sprite_animation.frame == 3 :
