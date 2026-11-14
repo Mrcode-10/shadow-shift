@@ -1,0 +1,93 @@
+[gd_scene format=3 uid="uid://byai11jmgx1m"]
+
+[ext_resource type="Texture2D" uid="uid://hei7usojslqg" path="res://Assets/craftpix/Enemies/Alien3.png" id="1_eqs1d"]
+[ext_resource type="Script" uid="uid://dl6ihedynw24w" path="res://Scripts/Enemies/simple_enemy_2_fire.gd" id="1_git2w"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eqs1d"]
+atlas = ExtResource("1_eqs1d")
+region = Rect2(0, 238, 48, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_git2w"]
+atlas = ExtResource("1_eqs1d")
+region = Rect2(0, 238, 48, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_22276"]
+atlas = ExtResource("1_eqs1d")
+region = Rect2(48, 238, 48, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_afwb6"]
+atlas = ExtResource("1_eqs1d")
+region = Rect2(96, 238, 48, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ayqxb"]
+atlas = ExtResource("1_eqs1d")
+region = Rect2(144, 238, 48, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4qlu5"]
+atlas = ExtResource("1_eqs1d")
+region = Rect2(192, 238, 48, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hvxys"]
+atlas = ExtResource("1_eqs1d")
+region = Rect2(240, 238, 48, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ji3sq"]
+atlas = ExtResource("1_eqs1d")
+region = Rect2(288, 238, 48, 34)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_o3eh5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eqs1d")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_git2w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_22276")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_afwb6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ayqxb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4qlu5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hvxys")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ji3sq")
+}],
+"loop": 0,
+"name": &"hit",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_l02h3"]
+
+[node name="SimpleEnemy2FireArea2D" type="Area2D" unique_id=2071578364]
+collision_layer = 0
+collision_mask = 3
+script = ExtResource("1_git2w")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2016961264]
+position = Vector2(5, -7)
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_o3eh5")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=753731863]
+position = Vector2(7, 5)
+shape = SubResource("CircleShape2D_l02h3")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_fire_animated_sprite_2d_animation_finished"]
