@@ -335,6 +335,9 @@ animations = [{
 radius = 5.0
 height = 22.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a3d8c"]
+size = Vector2(11.666667, 2.6666656)
+
 [node name="PlayerCharacterBody2D" type="CharacterBody2D" unique_id=264225744]
 scale = Vector2(3, 3)
 collision_layer = 2
@@ -343,7 +346,7 @@ script = ExtResource("1_cvnsp")
 
 [node name="PlayerAnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=701313364]
 sprite_frames = SubResource("SpriteFrames_gtiic")
-animation = &"land"
+animation = &"idle"
 autoplay = "idle"
 
 [node name="PlayerCollisionShape2D" type="CollisionShape2D" parent="." unique_id=1773535824]
@@ -369,6 +372,15 @@ position = Vector2(-16.666668, -3.3333335)
 [node name="FireRightTarget" type="Node2D" parent="FireTargetNodes" unique_id=1258099761]
 position = Vector2(16, -3.3333335)
 
+[node name="StompArea2D" type="Area2D" parent="." unique_id=1185336503]
+collision_layer = 0
+collision_mask = 4
+
+[node name="StompCollisionShape2D" type="CollisionShape2D" parent="StompArea2D" unique_id=1567631148]
+position = Vector2(0.33333334, 12.333334)
+shape = SubResource("RectangleShape2D_a3d8c")
+
 [connection signal="animation_finished" from="PlayerAnimatedSprite2D" to="." method="_on_player_animated_sprite_2d_animation_finished"]
 [connection signal="timeout" from="Timers/CoyoteJumpTimer" to="." method="coyote_jump_timer_timeout"]
 [connection signal="timeout" from="Timers/HardLandingTimer" to="." method="hard_landing_timer_timeout"]
+[connection signal="body_entered" from="StompArea2D" to="." method="_on_stomp_area_2d_body_entered"]
