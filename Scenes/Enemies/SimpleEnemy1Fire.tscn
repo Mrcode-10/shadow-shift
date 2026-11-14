@@ -63,6 +63,7 @@ size = Vector2(6, 1)
 
 [node name="SimpleEnemy1FireArea2D" type="Area2D" unique_id=281905724]
 scale = Vector2(3.5, 3.5)
+collision_layer = 0
 collision_mask = 3
 script = ExtResource("1_q5eov")
 

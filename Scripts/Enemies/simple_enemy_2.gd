@@ -7,7 +7,7 @@ enum STATE {
 }
 
 # TODO change this to true value
-var fire_file = preload("res://Scenes/Enemies/SimpleEnemy1Fire.tscn")
+var fire_file = preload("res://Scenes/Enemies/simple_enemy_2_fire.tscn")
 @export var health : float = 60
 @export var damage : float = 20
 var state : STATE = STATE.IDLE
@@ -222,7 +222,7 @@ func attack() -> void :
 		#DEBUG END
 		
 func spawn_fire(direction_value : float , target_node : Node2D) -> void :
-	var fire : SimpleEnemyFire = fire_file.instantiate()
+	var fire : SimpleEnemyFire2 = fire_file.instantiate()
 	fire.direction = direction_value
 	fire.global_position = target_node.global_position
 	get_tree().current_scene.add_child(fire)
@@ -242,6 +242,10 @@ func timer_attack_timeout() -> void :
 
 
 func _on_area_left_body_entered(body: Node2D) -> void:
+	# DEBUG BEGIN
+	if OS.is_debug_build() :
+		print("Player enter left area1")
+	# DEBUG END
 	if body is not Player :
 		return
 	if state == STATE.DEATH or state == STATE.HURT : 
@@ -255,7 +259,7 @@ func _on_area_left_body_entered(body: Node2D) -> void:
 		timer_attack.start()
 	# DEBUG BEGIN
 	if OS.is_debug_build() :
-		print("Player enter left area")
+		print("Player enter left area2")
 	# DEBUG END
 
 func _on_area_left_body_exited(body: Node2D) -> void:
@@ -299,7 +303,7 @@ func _on_area_right_body_exited(body: Node2D) -> void:
 	# DEBUG END
 
 func _on_enemy_animated_sprite_2d_frame_changed() -> void:
-	if state == STATE.ATTACK and sprite_animation.frame == 3 :
+	if state == STATE.ATTACK and sprite_animation.frame == 4 :
 		attack()
 		# BEGIN DEBUG
 		if OS.is_debug_build() :

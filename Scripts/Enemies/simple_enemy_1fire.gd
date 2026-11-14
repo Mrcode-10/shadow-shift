@@ -53,6 +53,8 @@ func _on_fire_animated_sprite_2d_animation_finished() -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
+	if state == STATE.HIT :
+		return
 	# Apply damage to enemy and animation handle
 	if body.has_method("take_damage_for_player") :
 		body.take_damage_for_player(damage)
@@ -64,8 +66,6 @@ func _on_body_entered(body: Node2D) -> void:
 	if OS.is_debug_build() :
 		print("simple enemy 1 fire hit something!")
 	# DEBUG END
-	if state == STATE.HIT :
-		return
 	if tween :
 		tween.kill()
 	set_deferred("monitoring" , false )
