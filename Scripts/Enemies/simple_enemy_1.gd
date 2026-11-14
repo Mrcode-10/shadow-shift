@@ -19,7 +19,8 @@ var is_player_entered : bool = false
 @onready var raycast_left : RayCast2D = $RayCastsNode2D/RayCastLeft
 @onready var raycast_right : RayCast2D = $RayCastsNode2D/RayCastRight
 var is_invulnerable_or_dead : bool = false 
-@onready var collision_shape : CollisionShape2D = $EnemyCollisionShape2D
+@onready var collision_shape_right : CollisionShape2D = $EnemyCollisionShapeRight
+@onready var collision_shape_left : CollisionShape2D = $EnemyCollisionShapeLeft
 @export var can_chase_player : bool = false
 @onready var timer_attack : Timer = $TimerNodes/AttackTimer
 @export var attack_timer : float = 2
@@ -104,10 +105,14 @@ func update_flip_h() -> void :
 	if velocity.x > 0 :
 		if sprite_animation.flip_h :
 			sprite_animation.flip_h = false
+			collision_shape_left.set_deferred("disabled" , true)
+			collision_shape_right.set_deferred("disabled" , false)
 	elif velocity.x < 0 :
 		if not sprite_animation.flip_h :
 			sprite_animation.flip_h = true
-
+			collision_shape_left.set_deferred("disabled" , false)
+			collision_shape_right.set_deferred("disabled" , true)
+			
 func match_state() -> void:
 	match state :
 		STATE.IDLE :

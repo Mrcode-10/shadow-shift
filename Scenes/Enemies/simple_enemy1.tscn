@@ -224,7 +224,7 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wbc82"]
-radius = 6.333334
+radius = 4.3333335
 height = 16.666666
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pwe8y"]
@@ -252,11 +252,16 @@ frame = 3
 frame_progress = 0.044703037
 metadata/_edit_lock_ = true
 
-[node name="EnemyCollisionShape2D" type="CollisionShape2D" parent="." unique_id=2102822208]
-position = Vector2(-1.6666667, 5.6666665)
+[node name="EnemyCollisionShapeRight" type="CollisionShape2D" parent="." unique_id=2102822208]
+position = Vector2(-3.6666667, 5.6666665)
+shape = SubResource("CapsuleShape2D_wbc82")
+
+[node name="EnemyCollisionShapeLeft" type="CollisionShape2D" parent="." unique_id=2105370164]
+position = Vector2(4, 5.6666665)
 shape = SubResource("CapsuleShape2D_wbc82")
 
 [node name="RayCastsNode2D" type="Node2D" parent="." unique_id=979623417]
+visible = false
 
 [node name="RayCastRightBottom" type="RayCast2D" parent="RayCastsNode2D" unique_id=2018886679]
 position = Vector2(1.6666666, 0)
@@ -275,6 +280,7 @@ position = Vector2(0, 5.666667)
 target_position = Vector2(-9, 0.333)
 
 [node name="WakeUpArea2D" type="Area2D" parent="." unique_id=1287006640]
+visible = false
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WakeUpArea2D" unique_id=2025384557]
@@ -289,6 +295,7 @@ shape = SubResource("RectangleShape2D_pwe8y")
 wait_time = 3.0
 
 [node name="AreaNodes" type="Node2D" parent="." unique_id=1782646268]
+visible = false
 
 [node name="AreaLeft" type="Area2D" parent="AreaNodes" unique_id=1961058023]
 collision_layer = 0
