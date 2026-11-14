@@ -6,6 +6,7 @@ enum STATE {
 	IDLE , RUNNING , RUN_ATTACK , DEATH , HURT , ATTACK , JUMP , FALL , LAND
 }
 
+@export var stomp_damage : float = 10
 var can_jump : bool = true
 var can_player_hard_landing : bool = false
 var state : STATE = STATE.IDLE
@@ -284,3 +285,17 @@ func spawn_fire() -> void :
 
 func take_damage_for_player(damage : float) -> void :
 	PlayerManager.decrease_health(damage)
+
+
+func _on_stomp_area_2d_body_entered(body: Node2D) -> void:
+	# DEBUG BEGIN
+	if OS.is_debug_build() :
+		print("Stomp")
+	# DEBUG END 
+	if body.has_method("take_damage") and velocity.y > 0:
+		body.take_damage(stomp_damage)
+		velocity.y += jump_velocity * 2
+		# DEBUG BEGIN
+		if OS.is_debug_build() :
+			print("Stomp Damage")
+		# DEBUG END 
