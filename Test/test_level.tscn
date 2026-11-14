@@ -91,3 +91,19 @@ position = Vector2(1232, 958)
 
 [node name="EnemyCharacterBody2D5" parent="." unique_id=2070144623 instance=ExtResource("3_ckmih")]
 position = Vector2(1497, 958)
+
+[node name="EnemyCharacterBody2D6" parent="." unique_id=647118065 instance=ExtResource("3_ckmih")]
+position = Vector2(1169, 834.00006)
+
+[node name="EnemyCharacterBody2D7" parent="." unique_id=987880347 instance=ExtResource("3_ckmih")]
+position = Vector2(1440, 831)
+can_chase_player = true
+
+[node name="EnemyCharacterBody2D8" parent="." unique_id=1923140207 instance=ExtResource("3_ckmih")]
+position = Vector2(1687, 817)
+
+[node name="EnemyCharacterBody2D9" parent="." unique_id=1365953447 instance=ExtResource("3_ckmih")]
+position = Vector2(1300, 821)
+
+[node name="EnemyCharacterBody2D10" parent="." unique_id=1418393643 instance=ExtResource("3_ckmih")]
+position = Vector2(1565, 821)
