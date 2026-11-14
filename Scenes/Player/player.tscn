@@ -186,7 +186,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"attack",
-"speed": 10.0
+"speed": 15.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -254,7 +254,7 @@ animations = [{
 }],
 "loop": 2,
 "name": &"idle",
-"speed": 5.0
+"speed": 7.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -270,7 +270,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"land",
-"speed": 5.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -299,7 +299,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"run_attack",
-"speed": 10.0
+"speed": 15.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -328,7 +328,7 @@ animations = [{
 }],
 "loop": 1,
 "name": &"running",
-"speed": 10.0
+"speed": 15.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qpa8y"]
@@ -343,7 +343,7 @@ script = ExtResource("1_cvnsp")
 
 [node name="PlayerAnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=701313364]
 sprite_frames = SubResource("SpriteFrames_gtiic")
-animation = &"jump"
+animation = &"land"
 autoplay = "idle"
 
 [node name="PlayerCollisionShape2D" type="CollisionShape2D" parent="." unique_id=1773535824]
