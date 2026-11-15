@@ -266,10 +266,10 @@ height = 32.666668
 size = Vector2(684.6667, 280)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_glcuh"]
-size = Vector2(324.33334, 20)
+size = Vector2(324.33334, 28.666668)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nv5qs"]
-size = Vector2(328.33334, 20)
+size = Vector2(328.33334, 27.333334)
 
 [node name="SimpleEnemy3CharacterBody2D" type="CharacterBody2D" unique_id=2067657646]
 scale = Vector2(3, 3)
@@ -317,8 +317,6 @@ shape = SubResource("RectangleShape2D_o3eh5")
 
 [node name="Timers" type="Node" parent="." unique_id=351223421]
 
-[node name="IFrameTimer" type="Timer" parent="Timers" unique_id=1673440526]
-
 [node name="AttackTimer" type="Timer" parent="Timers" unique_id=1920334546]
 
 [node name="AreaNodes" type="Node2D" parent="." unique_id=255564257]
@@ -328,7 +326,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AreaNodes/AreaLeft" unique_id=1842865579]
-position = Vector2(-168.83334, 0)
+position = Vector2(-168.83334, 4.333334)
 shape = SubResource("RectangleShape2D_glcuh")
 
 [node name="AreaRight" type="Area2D" parent="AreaNodes" unique_id=1321395094]
@@ -336,7 +334,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AreaNodes/AreaRight" unique_id=1572086600]
-position = Vector2(170.5, 0)
+position = Vector2(170.5, 3.666667)
 shape = SubResource("RectangleShape2D_nv5qs")
 
 [node name="TargetNodes" type="Node2D" parent="." unique_id=1537808852]

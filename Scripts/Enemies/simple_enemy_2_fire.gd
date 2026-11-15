@@ -12,7 +12,7 @@ var tween : Tween
 var state : STATE = STATE.DEFAULT
 var distance : float = 10000
 @export var animation_time : float = 15
-@export var damage : float = 10
+@export var damage : float = 20
 @onready var animation_sprite : AnimatedSprite2D = $AnimatedSprite2D
 
 func _ready() -> void:

@@ -1,0 +1,94 @@
+[gd_scene format=3 uid="uid://dx6ag7kal3pv2"]
+
+[ext_resource type="Script" uid="uid://dcxnrdssc0rro" path="res://Scripts/Enemies/simple_enemy_3_fire.gd" id="1_65u4x"]
+[ext_resource type="Texture2D" uid="uid://dac0aykd4f5gs" path="res://Assets/craftpix/Enemies/Alien5.png" id="1_m4c4h"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_65u4x"]
+atlas = ExtResource("1_m4c4h")
+region = Rect2(64, 319, 32, 31)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eysgo"]
+atlas = ExtResource("1_m4c4h")
+region = Rect2(64, 319, 32, 31)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6qcs5"]
+atlas = ExtResource("1_m4c4h")
+region = Rect2(96, 319, 32, 31)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p8by8"]
+atlas = ExtResource("1_m4c4h")
+region = Rect2(128, 319, 32, 31)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ischa"]
+atlas = ExtResource("1_m4c4h")
+region = Rect2(160, 319, 32, 31)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cd4hh"]
+atlas = ExtResource("1_m4c4h")
+region = Rect2(192, 319, 32, 31)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lklms"]
+atlas = ExtResource("1_m4c4h")
+region = Rect2(224, 319, 32, 31)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_67qnw"]
+atlas = ExtResource("1_m4c4h")
+region = Rect2(256, 319, 32, 31)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_77xnn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_65u4x")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eysgo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6qcs5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p8by8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ischa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cd4hh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lklms")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_67qnw")
+}],
+"loop": 0,
+"name": &"hit",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m4c4h"]
+size = Vector2(15.333334, 2.6666665)
+
+[node name="SimpleEnemy3FireArea2D" type="Area2D" unique_id=611211944]
+scale = Vector2(3, 3)
+collision_layer = 0
+collision_mask = 3
+script = ExtResource("1_65u4x")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=978725569]
+position = Vector2(15.666667, 0.6666667)
+sprite_frames = SubResource("SpriteFrames_77xnn")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=880756711]
+position = Vector2(7.666667, 1)
+shape = SubResource("RectangleShape2D_m4c4h")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_fire_animated_sprite_2d_animation_finished"]
