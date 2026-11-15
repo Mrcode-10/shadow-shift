@@ -83,3 +83,6 @@ can_chase_player = true
 
 [node name="EnemyCharacterBody2D" parent="." unique_id=669891633 instance=ExtResource("4_o8dmv")]
 position = Vector2(1270, 807)
+
+[node name="EnemyCharacterBody2D2" parent="." unique_id=1432488623 instance=ExtResource("4_o8dmv")]
+position = Vector2(1439, 862)
