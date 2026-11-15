@@ -250,6 +250,7 @@ animation = &"attack"
 autoplay = "idle"
 frame = 3
 frame_progress = 0.044703037
+flip_h = true
 metadata/_edit_lock_ = true
 
 [node name="EnemyCollisionShapeRight" type="CollisionShape2D" parent="." unique_id=2102822208]
@@ -259,12 +260,12 @@ shape = SubResource("CapsuleShape2D_wbc82")
 [node name="EnemyCollisionShapeLeft" type="CollisionShape2D" parent="." unique_id=2105370164]
 position = Vector2(4, 5.6666665)
 shape = SubResource("CapsuleShape2D_wbc82")
+disabled = true
 
 [node name="RayCastsNode2D" type="Node2D" parent="." unique_id=979623417]
-visible = false
 
 [node name="RayCastRightBottom" type="RayCast2D" parent="RayCastsNode2D" unique_id=2018886679]
-position = Vector2(1.6666666, 0)
+position = Vector2(7, 0)
 target_position = Vector2(0, 16.666668)
 
 [node name="RayCastLeftBottom" type="RayCast2D" parent="RayCastsNode2D" unique_id=646802082]
@@ -280,7 +281,6 @@ position = Vector2(0, 5.666667)
 target_position = Vector2(-9, 0.333)
 
 [node name="WakeUpArea2D" type="Area2D" parent="." unique_id=1287006640]
-visible = false
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WakeUpArea2D" unique_id=2025384557]
