@@ -7,7 +7,7 @@ enum STATE {
 }
 
 # TODO change this to true value
-var fire_file = preload("res://Scenes/Enemies/simple_enemy_2_fire.tscn")
+var fire_file = preload("res://Scenes/Enemies/simple_enemy_3_fire.tscn")
 @export var health : float = 120
 @export var damage : float = 50
 var state : STATE = STATE.IDLE
@@ -31,7 +31,7 @@ var is_player_in_area_right : bool = false
 @onready var target_left : Node2D = $TargetNodes/LeftTarget
 @onready var target_right : Node2D = $TargetNodes/RightTarget
 @export var first_attack_delay : float = 1
-@export var distance : float = 200
+@export var distance : float = 250
 var should_move : bool = false
 @onready var area_left : Area2D = $AreaNodes/AreaLeft
 @onready var area_right : Area2D = $AreaNodes/AreaRight
@@ -155,7 +155,7 @@ func _on_wake_up_area_2d_body_entered(body: Node2D) -> void:
 func take_damage(damage_number:float) -> void :
 	# DEBUG BEGIN
 	if OS.is_debug_build():
-		print("Enemy 2 get damage from player : enemy side")
+		print("Enemy 3 get damage from player : enemy side")
 	# DEBUG END
 	if not is_invulnerable_or_dead :
 		health = maxf(health-damage_number,0)
@@ -220,7 +220,7 @@ func attack() -> void :
 		#DEBUG END
 		
 func spawn_fire(direction_value : float , target_node : Node2D) -> void :
-	var fire : SimpleEnemyFire2 = fire_file.instantiate()
+	var fire : SimpleEnemyFire3 = fire_file.instantiate()
 	fire.direction = direction_value
 	fire.global_position = target_node.global_position
 	get_tree().current_scene.add_child(fire)
@@ -301,7 +301,7 @@ func _on_area_right_body_exited(body: Node2D) -> void:
 	# DEBUG END
 
 func _on_enemy_animated_sprite_2d_frame_changed() -> void:
-	if state == STATE.ATTACK and sprite_animation.frame == 4 :
+	if state == STATE.ATTACK and sprite_animation.frame == 5 :
 		attack()
 		# BEGIN DEBUG
 		if OS.is_debug_build() :
