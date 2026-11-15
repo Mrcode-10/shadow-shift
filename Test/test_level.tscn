@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://b3mb13u0qtydg" path="res://Scenes/Player/player.tscn" id="2_dmxo2"]
 [ext_resource type="PackedScene" uid="uid://2j8wng40e6vn" path="res://Scenes/Enemies/simple_enemy2.tscn" id="4_m3pee"]
 [ext_resource type="PackedScene" uid="uid://qr5hqk5jd53y" path="res://Scenes/Enemies/simple_enemy1.tscn" id="4_o8dmv"]
+[ext_resource type="PackedScene" uid="uid://dmf17xxjqfv3p" path="res://Scenes/Enemies/simple_enemy3.tscn" id="5_o8dmv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dmxo2"]
 resource_local_to_scene = true
@@ -86,3 +87,6 @@ position = Vector2(1270, 807)
 
 [node name="EnemyCharacterBody2D2" parent="." unique_id=1432488623 instance=ExtResource("4_o8dmv")]
 position = Vector2(1439, 862)
+
+[node name="SimpleEnemy3CharacterBody2D" parent="." unique_id=2067657646 instance=ExtResource("5_o8dmv")]
+position = Vector2(1211, 914)
