@@ -341,7 +341,6 @@ size = Vector2(11.666667, 2.6666656)
 [node name="PlayerCharacterBody2D" type="CharacterBody2D" unique_id=264225744]
 scale = Vector2(3, 3)
 collision_layer = 2
-collision_mask = 5
 script = ExtResource("1_cvnsp")
 
 [node name="PlayerAnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=701313364]
@@ -363,6 +362,9 @@ one_shot = true
 process_callback = 0
 wait_time = 0.5
 one_shot = true
+
+[node name="DamageToPlayer" type="Timer" parent="Timers" unique_id=1341035677]
+process_callback = 0
 
 [node name="FireTargetNodes" type="Node2D" parent="." unique_id=692163625]
 

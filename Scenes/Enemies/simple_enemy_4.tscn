@@ -277,12 +277,24 @@ animations = [{
 "speed": 8.0
 }]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bkiaa"]
+radius = 4.0
+height = 25.333336
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jivhy"]
 radius = 4.0
 height = 25.333336
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o3eh5"]
 size = Vector2(1406, 405.6667)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_a34ls"]
+radius = 4.3333335
+height = 16.666666
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rm2rx"]
+radius = 4.3333335
+height = 16.666666
 
 [node name="SimpleEnemy4CharacterBody2D" type="CharacterBody2D" unique_id=1244695735]
 scale = Vector2(3, 3)
@@ -296,7 +308,7 @@ autoplay = "idle"
 
 [node name="CollisionShapeLeft" type="CollisionShape2D" parent="." unique_id=1246590718]
 position = Vector2(4.3333335, -3.3333335)
-shape = SubResource("CapsuleShape2D_jivhy")
+shape = SubResource("CapsuleShape2D_bkiaa")
 disabled = true
 
 [node name="CollisionShapeRight" type="CollisionShape2D" parent="." unique_id=1300031309]
@@ -331,6 +343,33 @@ shape = SubResource("RectangleShape2D_o3eh5")
 
 [node name="AttackTimer" type="Timer" parent="TimerNodes" unique_id=2077396939]
 
+[node name="DamageToPlayer" type="Timer" parent="TimerNodes" unique_id=501910552]
+process_callback = 0
+
+[node name="DamageToPlayerAreas" type="Node2D" parent="." unique_id=1882189661]
+
+[node name="DamageToPlayerAreaRight" type="Area2D" parent="DamageToPlayerAreas" unique_id=400975479]
+collision_layer = 0
+collision_mask = 2
+
+[node name="EnemyCollisionShapeRight" type="CollisionShape2D" parent="DamageToPlayerAreas/DamageToPlayerAreaRight" unique_id=2022612914]
+position = Vector2(-0.33333325, 5.6666665)
+shape = SubResource("CapsuleShape2D_a34ls")
+
+[node name="DamageToPlayerAreaLeft" type="Area2D" parent="DamageToPlayerAreas" unique_id=1338951409]
+collision_layer = 0
+collision_mask = 2
+
+[node name="EnemyCollisionShapeLeft" type="CollisionShape2D" parent="DamageToPlayerAreas/DamageToPlayerAreaLeft" unique_id=1069164894]
+position = Vector2(1, 6)
+shape = SubResource("CapsuleShape2D_rm2rx")
+disabled = true
+
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_enemy_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="WakeUpArea" to="." method="_on_wake_up_area_2d_body_entered"]
 [connection signal="body_exited" from="WakeUpArea" to="." method="_on_wake_up_area_2d_body_exited"]
+[connection signal="timeout" from="TimerNodes/DamageToPlayer" to="." method="_on_damage_to_player_timeout"]
+[connection signal="body_entered" from="DamageToPlayerAreas/DamageToPlayerAreaRight" to="." method="_on_damage_to_player_area_right_body_entered"]
+[connection signal="body_exited" from="DamageToPlayerAreas/DamageToPlayerAreaRight" to="." method="_on_damage_to_player_area_right_body_exited"]
+[connection signal="body_entered" from="DamageToPlayerAreas/DamageToPlayerAreaLeft" to="." method="_on_damage_to_player_area_left_body_entered"]
+[connection signal="body_exited" from="DamageToPlayerAreas/DamageToPlayerAreaLeft" to="." method="_on_damage_to_player_area_left_body_exited"]

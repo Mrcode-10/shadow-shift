@@ -35,6 +35,10 @@ var is_player_in_area_right : bool = false
 var should_move : bool = false
 @onready var area_left : Area2D = $AreaNodes/AreaLeft
 @onready var area_right : Area2D = $AreaNodes/AreaRight
+@onready var damage_to_player_left : Area2D = $DamageToPlayerAreas/DamageToPlayerAreaLeft
+@onready var damage_to_player_right : Area2D = $DamageToPlayerAreas/DamageToPlayerAreaRight
+@onready var damage_to_player_timer : Timer = $TimerNodes/DamageToPlayer
+
 
 func _ready() -> void:
 	timer_attack.wait_time = attack_timer
@@ -120,12 +124,16 @@ func update_flip_h() -> void :
 		if sprite_animation.flip_h :
 			sprite_animation.flip_h = false
 			collision_shape_left.set_deferred("disabled" , true)
+			damage_to_player_left.set_deferred("monitoring" , false)
 			collision_shape_right.set_deferred("disabled" , false)
+			damage_to_player_right.set_deferred("monitoring" , true)
 	elif velocity.x < 0 :
 		if not sprite_animation.flip_h :
 			sprite_animation.flip_h = true
 			collision_shape_left.set_deferred("disabled" , false)
+			damage_to_player_left.set_deferred("monitoring" , true)
 			collision_shape_right.set_deferred("disabled" , true)
+			damage_to_player_right.set_deferred("monitoring" , false)
 			
 func match_state() -> void:
 	match state :
@@ -182,6 +190,10 @@ func take_damage(damage_number:float) -> void :
 
 func death() -> void :
 	change_state(STATE.DEATH)
+	damage_to_player_left.set_deferred("monitoring" , false)
+	damage_to_player_right.set_deferred("monitoring" , false)
+	if not damage_to_player_timer.is_stopped() :
+		damage_to_player_timer.stop()
 
 func _on_enemy_animated_sprite_2d_animation_finished() -> void:
 	if sprite_animation.animation == "hurt" :
@@ -233,6 +245,7 @@ func attack() -> void :
 func spawn_fire(direction_value : float , target_node : Node2D) -> void :
 	var fire : SimpleEnemyFire = fire_file.instantiate()
 	fire.direction = direction_value
+	fire.damage = self.damage
 	fire.global_position = target_node.global_position
 	get_tree().current_scene.add_child(fire)
 
@@ -314,3 +327,48 @@ func _on_enemy_animated_sprite_2d_frame_changed() -> void:
 		if OS.is_debug_build() :
 			print("enemy attack to player")
 		# END DEBUG
+
+
+func _on_damage_to_player_area_right_body_entered(body: Node2D) -> void:
+	# BEGIN DEBUG
+	if OS.is_debug_build() :
+		print("area work good right!")
+	# END DEBUG
+	if body.has_method("take_damage_for_player") :
+		body.take_damage_for_player(damage)
+		if damage_to_player_timer.is_stopped() :
+			damage_to_player_timer.start()
+			# BRGIN DEBUG
+			if OS.is_debug_build() :
+				print("enemy attack to player 😎")
+			# END DEBUG
+
+
+func _on_damage_to_player_area_left_body_exited(body: Node2D) -> void:
+	if not damage_to_player_timer.is_stopped() :
+			damage_to_player_timer.stop()
+
+
+func _on_damage_to_player_area_right_body_exited(body: Node2D) -> void:
+	if not damage_to_player_timer.is_stopped() :
+		damage_to_player_timer.stop()
+	
+func _on_damage_to_player_area_left_body_entered(body: Node2D) -> void:
+	# BEGIN DEBUG
+	if OS.is_debug_build() :
+		print("area work good left !")
+	# END DEBUG
+	if body.has_method("take_damage_for_player") :
+		body.take_damage_for_player(damage)
+		if damage_to_player_timer.is_stopped() :
+			damage_to_player_timer.start()
+			# BEGIN DEBUG
+			if OS.is_debug_build() :
+				print("enemy attack to player 😎")
+			# END DEBUG
+
+
+func _on_damage_to_player_timeout() -> void:
+	if player == null :
+		return
+	player.take_damage_for_player(damage)
