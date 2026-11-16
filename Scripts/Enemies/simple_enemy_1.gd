@@ -6,6 +6,7 @@ enum STATE {
 	IDLE , HURT , FALL , JUMP , RUN , DEATH , ATTACK
 }
 
+var is_distance_ok : bool = true
 var fire_file = preload("res://Scenes/Enemies/SimpleEnemy1Fire.tscn")
 @export var health : float = 40
 @export var damage : float = 10
@@ -90,7 +91,7 @@ func update_animation() -> void :
 		return
 	# Animation Handle
 	if is_on_floor() :
-		if is_player_entered and global_position.distance_to(player.global_position) > distance :
+		if is_distance_ok and is_player_entered and global_position.distance_to(player.global_position) > distance :
 			change_state(STATE.RUN)
 		
 		else:
@@ -103,6 +104,18 @@ func update_animation() -> void :
 			change_state(STATE.JUMP)
 
 func update_flip_h() -> void :
+	if player != null :
+		if abs(global_position.x - player.global_position.x) < 25 :
+			velocity.x = 0
+			if state != STATE.DEATH and state != STATE.HURT :
+				change_state(STATE.IDLE)
+			is_distance_ok = false
+			return
+		else :
+			is_distance_ok = true
+	else :
+		is_distance_ok = true
+		
 	if velocity.x > 0 :
 		if sprite_animation.flip_h :
 			sprite_animation.flip_h = false
