@@ -76,8 +76,9 @@ func change_direction() -> void :
 	elif raycast_right.is_colliding() or not raycast_right_bottom.is_colliding() :
 		direction = -1
 	
-	if can_chase_player and player != null :
-		chase_player()
+	else :
+		if can_chase_player and player != null :
+			chase_player()
 		
 func change_state(new_state : STATE) -> void:
 	if new_state != state and state != STATE.DEATH :
