@@ -288,6 +288,10 @@ animations = [{
 radius = 5.666667
 height = 22.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8cdjq"]
+radius = 5.666667
+height = 22.0
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o3eh5"]
 size = Vector2(612.6667, 181.33334)
 
@@ -297,10 +301,17 @@ size = Vector2(289.33334, 20)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rgh0e"]
 size = Vector2(271.3333, 20)
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qwu5w"]
+radius = 5.666667
+height = 22.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3ivr1"]
+radius = 5.666667
+height = 22.0
+
 [node name="SimpleEnemy2CharacterBody2D" type="CharacterBody2D" unique_id=1125653296]
 scale = Vector2(3, 3)
 collision_layer = 4
-collision_mask = 3
 script = ExtResource("1_dkdop")
 
 [node name="SimpleEnemy2AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=334476056]
@@ -316,7 +327,7 @@ shape = SubResource("CapsuleShape2D_dkdop")
 
 [node name="SimpleEnemy2CollisionShapeLeft" type="CollisionShape2D" parent="." unique_id=657519040]
 position = Vector2(5, -1.3333334)
-shape = SubResource("CapsuleShape2D_dkdop")
+shape = SubResource("CapsuleShape2D_8cdjq")
 disabled = true
 
 [node name="RayCastNodes" type="Node2D" parent="." unique_id=1827956527]
@@ -347,7 +358,8 @@ shape = SubResource("RectangleShape2D_o3eh5")
 
 [node name="Timers" type="Node" parent="." unique_id=1856271392]
 
-[node name="IFrameTimer" type="Timer" parent="Timers" unique_id=957128771]
+[node name="DamageToPlayer" type="Timer" parent="Timers" unique_id=957128771]
+process_callback = 0
 
 [node name="AttackTimer" type="Timer" parent="Timers" unique_id=1802506216]
 
@@ -377,12 +389,32 @@ position = Vector2(-22, -6.666667)
 [node name="RightTarget" type="Node2D" parent="TargetNodes" unique_id=527704727]
 position = Vector2(27.333334, -6.3333335)
 
+[node name="DamageToPlayerAreas" type="Node2D" parent="." unique_id=1995543048]
+
+[node name="DamageToPlayerAreaLeft" type="Area2D" parent="DamageToPlayerAreas" unique_id=751455231]
+
+[node name="SimpleEnemy2CollisionShapeLeft" type="CollisionShape2D" parent="DamageToPlayerAreas/DamageToPlayerAreaLeft" unique_id=1478335190]
+position = Vector2(5, -1.3333334)
+shape = SubResource("CapsuleShape2D_qwu5w")
+disabled = true
+
+[node name="DamageToPlayerAreaRight" type="Area2D" parent="DamageToPlayerAreas" unique_id=511936759]
+
+[node name="SimpleEnemy2CollisionShapeRight" type="CollisionShape2D" parent="DamageToPlayerAreas/DamageToPlayerAreaRight" unique_id=1919661087]
+position = Vector2(-4.666667, -1.3333334)
+shape = SubResource("CapsuleShape2D_3ivr1")
+
 [connection signal="animation_finished" from="SimpleEnemy2AnimatedSprite2D" to="." method="_on_enemy_animated_sprite_2d_animation_finished"]
 [connection signal="frame_changed" from="SimpleEnemy2AnimatedSprite2D" to="." method="_on_enemy_animated_sprite_2d_frame_changed"]
 [connection signal="body_entered" from="WakeUpArea2D" to="." method="_on_wake_up_area_2d_body_entered"]
 [connection signal="body_exited" from="WakeUpArea2D" to="." method="_on_wake_up_area_2d_body_exited"]
+[connection signal="timeout" from="Timers/DamageToPlayer" to="." method="_on_damage_to_player_timeout"]
 [connection signal="timeout" from="Timers/AttackTimer" to="." method="timer_attack_timeout"]
 [connection signal="body_entered" from="AreaNodes/AreaRight" to="." method="_on_area_right_body_entered"]
 [connection signal="body_exited" from="AreaNodes/AreaRight" to="." method="_on_area_right_body_exited"]
 [connection signal="body_entered" from="AreaNodes/AreaLeft" to="." method="_on_area_left_body_entered"]
 [connection signal="body_exited" from="AreaNodes/AreaLeft" to="." method="_on_area_left_body_exited"]
+[connection signal="body_entered" from="DamageToPlayerAreas/DamageToPlayerAreaLeft" to="." method="_on_damage_to_player_area_left_body_entered"]
+[connection signal="body_exited" from="DamageToPlayerAreas/DamageToPlayerAreaLeft" to="." method="_on_damage_to_player_area_left_body_exited"]
+[connection signal="body_entered" from="DamageToPlayerAreas/DamageToPlayerAreaRight" to="." method="_on_damage_to_player_area_right_body_entered"]
+[connection signal="body_exited" from="DamageToPlayerAreas/DamageToPlayerAreaRight" to="." method="_on_damage_to_player_area_right_body_exited"]

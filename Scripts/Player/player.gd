@@ -22,6 +22,7 @@ var fire_file = preload("res://Scenes/Player/fire.tscn")
 @onready var fire_right_target : Node2D = $FireTargetNodes/FireRightTarget
 @onready var fire_left_target : Node2D = $FireTargetNodes/FireLeftTarget
 
+
 func _ready() -> void:
 	# connect signals to player after simple check connectins
 	if not PlayerManager.player_death_signal.is_connected(player_death_function) :
