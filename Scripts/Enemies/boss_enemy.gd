@@ -8,7 +8,8 @@ enum STATE {
 
 var is_distance_ok : bool = true
 @export var health : float = 240
-@export var damage : float = 50
+@export var attack_damage : float = 32
+@export var normal_damage : float = 5
 var state : STATE = STATE.IDLE
 @onready var sprite_animation : AnimatedSprite2D = $AnimatedSprite2D
 var direction : float = 1.0
@@ -232,7 +233,7 @@ func _on_damage_to_player_area_body_entered(body: Node2D) -> void:
 		print("area work good for boss enemy!")
 	# END DEBUG
 	if body.has_method("take_damage_for_player") :
-		body.take_damage_for_player(damage)
+		body.take_damage_for_player(normal_damage)
 		if damage_to_player_timer.is_stopped() :
 			damage_to_player_timer.start()
 			# BRGIN DEBUG
@@ -252,7 +253,7 @@ func _on_damage_to_player_area_body_exited(body: Node2D) -> void:
 func _on_damage_to_player_timeout() -> void:
 	if player == null :
 		return
-	player.take_damage_for_player(damage)
+	player.take_damage_for_player(normal_damage)
 
 
 
@@ -264,7 +265,7 @@ func attack() -> void :
 		return
 		
 	if player.has_method("take_damage_for_player") :
-		player.take_damage_for_player(damage)
+		player.take_damage_for_player(attack_damage)
 			
 func finish_attack() -> void :
 	if not timer_attack.is_stopped() :
