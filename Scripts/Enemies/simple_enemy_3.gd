@@ -9,7 +9,7 @@ enum STATE {
 # TODO change this to true value
 var fire_file = preload("res://Scenes/Enemies/simple_enemy_3_fire.tscn")
 var is_distance_ok : bool = true
-@export var health : float = 120
+@export var health : float = 60
 @export var fire_damage : float = 30
 @export var normal_damage : float = 5
 var state : STATE = STATE.IDLE
