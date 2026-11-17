@@ -396,9 +396,9 @@ position = Vector2(27.333334, -6.3333335)
 [node name="SimpleEnemy2CollisionShapeLeft" type="CollisionShape2D" parent="DamageToPlayerAreas/DamageToPlayerAreaLeft" unique_id=1478335190]
 position = Vector2(5, -1.3333334)
 shape = SubResource("CapsuleShape2D_qwu5w")
-disabled = true
 
 [node name="DamageToPlayerAreaRight" type="Area2D" parent="DamageToPlayerAreas" unique_id=511936759]
+monitoring = false
 
 [node name="SimpleEnemy2CollisionShapeRight" type="CollisionShape2D" parent="DamageToPlayerAreas/DamageToPlayerAreaRight" unique_id=1919661087]
 position = Vector2(-4.666667, -1.3333334)
