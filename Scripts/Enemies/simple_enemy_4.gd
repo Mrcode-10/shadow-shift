@@ -193,7 +193,6 @@ func take_damage(damage_number:float) -> void :
 			death()
 		# Hurt Handle
 		else :
-			can_attack = false
 			finish_attack()
 			change_state(STATE.HURT)
 		
@@ -349,6 +348,6 @@ func _on_animated_sprite_2d_frame_changed() -> void:
 		attack()
 
 func timer_attack_timeout() -> void :
-	if not is_inside_tree() or player == null or state==STATE.HURT or state == STATE.DEATH :
+	if not is_inside_tree() or player == null or state==STATE.HURT or state == STATE.DEATH or not can_attack:
 		return
 	change_state(STATE.ATTACK)
