@@ -9,7 +9,8 @@ enum STATE {
 var is_distance_ok : bool = true
 var fire_file = preload("res://Scenes/Enemies/SimpleEnemy1Fire.tscn")
 @export var health : float = 40
-@export var damage : float = 10
+@export var fire_damage : float = 5
+@export var normal_damage : float = 5
 var state : STATE = STATE.IDLE
 @onready var sprite_animation : AnimatedSprite2D = $EnemyAnimatedSprite2D
 var direction : float = 1.0
@@ -245,7 +246,7 @@ func attack() -> void :
 func spawn_fire(direction_value : float , target_node : Node2D) -> void :
 	var fire : SimpleEnemyFire = fire_file.instantiate()
 	fire.direction = direction_value
-	fire.damage = self.damage
+	fire.damage = fire_damage
 	fire.global_position = target_node.global_position
 	get_tree().current_scene.add_child(fire)
 
@@ -335,7 +336,7 @@ func _on_damage_to_player_area_right_body_entered(body: Node2D) -> void:
 		print("area work good right!")
 	# END DEBUG
 	if body.has_method("take_damage_for_player") :
-		body.take_damage_for_player(damage)
+		body.take_damage_for_player(normal_damage)
 		if damage_to_player_timer.is_stopped() :
 			damage_to_player_timer.start()
 			# BRGIN DEBUG
@@ -359,7 +360,7 @@ func _on_damage_to_player_area_left_body_entered(body: Node2D) -> void:
 		print("area work good left !")
 	# END DEBUG
 	if body.has_method("take_damage_for_player") :
-		body.take_damage_for_player(damage)
+		body.take_damage_for_player(normal_damage)
 		if damage_to_player_timer.is_stopped() :
 			damage_to_player_timer.start()
 			# BEGIN DEBUG
@@ -371,4 +372,4 @@ func _on_damage_to_player_area_left_body_entered(body: Node2D) -> void:
 func _on_damage_to_player_timeout() -> void:
 	if player == null :
 		return
-	player.take_damage_for_player(damage)
+	player.take_damage_for_player(normal_damage)
