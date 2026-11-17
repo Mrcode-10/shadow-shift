@@ -296,15 +296,27 @@ height = 16.666666
 radius = 4.3333335
 height = 16.666666
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l02h3"]
+size = Vector2(21, 26)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rgh0e"]
+size = Vector2(20, 26.333334)
+
 [node name="SimpleEnemy4CharacterBody2D" type="CharacterBody2D" unique_id=1244695735]
 scale = Vector2(3, 3)
 collision_layer = 4
 script = ExtResource("1_bkiaa")
+speed = 200.0
+can_chase_player = true
+attack_timer = 1.0
+first_attack_delay = 0.2
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1209654481]
 sprite_frames = SubResource("SpriteFrames_o3eh5")
-animation = &"idle"
+animation = &"attack"
 autoplay = "idle"
+frame = 7
+frame_progress = 1.0
 
 [node name="CollisionShapeLeft" type="CollisionShape2D" parent="." unique_id=1246590718]
 position = Vector2(4.3333335, -3.3333335)
@@ -353,19 +365,39 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="EnemyCollisionShapeRight" type="CollisionShape2D" parent="DamageToPlayerAreas/DamageToPlayerAreaRight" unique_id=2022612914]
-position = Vector2(-0.33333325, 5.6666665)
+position = Vector2(-4, -0.3333335)
 shape = SubResource("CapsuleShape2D_a34ls")
 
 [node name="DamageToPlayerAreaLeft" type="Area2D" parent="DamageToPlayerAreas" unique_id=1338951409]
 collision_layer = 0
 collision_mask = 2
+monitoring = false
 
 [node name="EnemyCollisionShapeLeft" type="CollisionShape2D" parent="DamageToPlayerAreas/DamageToPlayerAreaLeft" unique_id=1069164894]
-position = Vector2(1, 6)
+position = Vector2(5, -0.3333335)
 shape = SubResource("CapsuleShape2D_rm2rx")
-disabled = true
+
+[node name="AttackAreaNodes" type="Node2D" parent="." unique_id=307298517]
+
+[node name="AttackRightArea" type="Area2D" parent="AttackAreaNodes" unique_id=641003160]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackAreaNodes/AttackRightArea" unique_id=981315759]
+position = Vector2(13.833334, -2.6666667)
+shape = SubResource("RectangleShape2D_l02h3")
+
+[node name="AttackLeftArea" type="Area2D" parent="AttackAreaNodes" unique_id=1821789320]
+collision_layer = 0
+collision_mask = 2
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackAreaNodes/AttackLeftArea" unique_id=341523009]
+position = Vector2(-12.666667, -2.1666665)
+shape = SubResource("RectangleShape2D_rgh0e")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_enemy_animated_sprite_2d_animation_finished"]
+[connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]
 [connection signal="body_entered" from="WakeUpArea" to="." method="_on_wake_up_area_2d_body_entered"]
 [connection signal="body_exited" from="WakeUpArea" to="." method="_on_wake_up_area_2d_body_exited"]
 [connection signal="timeout" from="TimerNodes/DamageToPlayer" to="." method="_on_damage_to_player_timeout"]
@@ -373,3 +405,7 @@ disabled = true
 [connection signal="body_exited" from="DamageToPlayerAreas/DamageToPlayerAreaRight" to="." method="_on_damage_to_player_area_right_body_exited"]
 [connection signal="body_entered" from="DamageToPlayerAreas/DamageToPlayerAreaLeft" to="." method="_on_damage_to_player_area_left_body_entered"]
 [connection signal="body_exited" from="DamageToPlayerAreas/DamageToPlayerAreaLeft" to="." method="_on_damage_to_player_area_left_body_exited"]
+[connection signal="body_entered" from="AttackAreaNodes/AttackRightArea" to="." method="_on_attack_right_area_body_entered"]
+[connection signal="body_exited" from="AttackAreaNodes/AttackRightArea" to="." method="_on_attack_right_area_body_exited"]
+[connection signal="body_entered" from="AttackAreaNodes/AttackLeftArea" to="." method="_on_attack_left_area_body_entered"]
+[connection signal="body_exited" from="AttackAreaNodes/AttackLeftArea" to="." method="_on_attack_left_area_body_exited"]
