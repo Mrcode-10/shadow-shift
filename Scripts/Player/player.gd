@@ -6,11 +6,12 @@ enum STATE {
 	IDLE , RUNNING , RUN_ATTACK , DEATH , HURT , ATTACK , JUMP , FALL , LAND
 }
 
-@export var stomp_damage : float = 10
+@export var stomp_damage : float = 5
 var can_jump : bool = true
 var can_player_hard_landing : bool = false
 var state : STATE = STATE.IDLE
 var is_player_dead : bool = false
+var can_use_shift : bool = true
 var fire_file = preload("res://Scenes/Player/fire.tscn")
 @export var reload_time : float = 3
 @export var speed : float = 300.0
@@ -21,6 +22,7 @@ var fire_file = preload("res://Scenes/Player/fire.tscn")
 @onready var coyote_jump_timer : Timer = $Timers/CoyoteJumpTimer
 @onready var fire_right_target : Node2D = $FireTargetNodes/FireRightTarget
 @onready var fire_left_target : Node2D = $FireTargetNodes/FireLeftTarget
+@onready var shift_timer : Timer = $Timers/ShiftTimer
 
 
 func _ready() -> void:
@@ -36,7 +38,8 @@ func _ready() -> void:
 		coyote_jump_timer.timeout.connect(coyote_jump_timer_timeout)
 	if not hard_landing_timer.timeout.is_connected(hard_landing_timer_timeout) :
 		hard_landing_timer.timeout.connect(hard_landing_timer_timeout)
-		
+	if not shift_timer.timeout.is_connected(shift_timer_timeout) :
+		shift_timer.timeout.connect(shift_timer_timeout)
 	# set timers wait timer
 	hard_landing_timer.wait_time = hard_landing_time_number
 
@@ -180,6 +183,8 @@ func update_flip_h() -> void :
 	elif velocity.x < -0.1 :
 		if not animation_sprite.flip_h :
 			animation_sprite.flip_h = true
+			if shift_timer.is_stopped() :
+				shift_timer.start()
 			PlayerManager.flip_h = animation_sprite.flip_h
 	
 func _unhandled_input(event: InputEvent) -> void:
@@ -205,6 +210,11 @@ func _unhandled_input(event: InputEvent) -> void:
 			if OS.is_debug_build() :
 				print("State changed to attack")
 			# END DEBUG
+	
+	if event.is_action_pressed("shift") and not is_player_dead and state != STATE.HURT and can_use_shift :
+		PlayerManager.shift_signal.emit()
+		can_use_shift = false
+	
 	# TEST
 	if event.is_action_pressed("TEST_HURT") and OS.is_debug_build() :
 		PlayerManager.decrease_health(10)
@@ -300,3 +310,9 @@ func _on_stomp_area_2d_body_entered(body: Node2D) -> void:
 		if OS.is_debug_build() :
 			print("Stomp Damage")
 		# DEBUG END 
+
+# Shift timer handle
+func shift_timer_timeout() -> void :
+	if is_player_dead : 
+		return
+	can_use_shift = true
