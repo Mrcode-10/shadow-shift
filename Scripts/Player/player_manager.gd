@@ -71,3 +71,4 @@ signal change_killed_enemy_number(value)
 signal change_playing_timer(value)
 signal player_get_hurt_signal
 signal player_death_signal
+signal shift_signal

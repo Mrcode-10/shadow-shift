@@ -9,9 +9,12 @@ enum STATE {
 ## TODO change this to true value
 #var fire_file = preload("res://Scenes/Enemies/simple_enemy_3_fire.tscn")
 var is_distance_ok : bool = true
-@export var health : float = 60
+var health : float = 60
+@export var max_health : float = 60
+@export var shift_value : float = 1.2
 @export var attack_damage : float = 20
 @export var normal_damage : float = 5
+var can_use_shift : bool = false
 var state : STATE = STATE.IDLE
 @onready var sprite_animation : AnimatedSprite2D = $AnimatedSprite2D
 var direction : float = 1.0
@@ -45,6 +48,11 @@ var can_attack : bool = false
 #@onready var area_right : Area2D = $AreaNodes/AreaRight
 
 func _ready() -> void:
+	
+	health = max_health
+	
+	PlayerManager.shift_signal.connect(shift_function)
+	
 	timer_attack.wait_time = attack_timer
 	if not timer_attack.timeout.is_connected(timer_attack_timeout) :
 		timer_attack.timeout.connect(timer_attack_timeout)
@@ -352,3 +360,31 @@ func timer_attack_timeout() -> void :
 	if not is_inside_tree() or player == null or state==STATE.HURT or state == STATE.DEATH or not can_attack:
 		return
 	change_state(STATE.ATTACK)
+
+
+func shift_function() -> void : 
+	if not can_use_shift :
+		return
+	
+	if health > max_health / 2 :
+		health = max_health
+		attack_damage *= shift_value
+		# BEGIN DEBUG
+		if OS.is_debug_build() :
+			print("shift up enemy4")
+		# END DEBUG
+	else : 
+		take_damage(100)
+		# BEGIN DEBUG
+		if OS.is_debug_build() :
+			print("shift down enemy4")
+		# END DEBUG
+
+
+
+func _on_shift_area_area_entered(area: Area2D) -> void:
+	can_use_shift = true
+
+
+func _on_shift_area_area_exited(area: Area2D) -> void:
+	can_use_shift = false

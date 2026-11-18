@@ -7,13 +7,17 @@ enum STATE {
 }
 
 var is_distance_ok : bool = true
-@export var health : float = 240
+var health : float = 240
+@export var max_health : float = 240
+@export var shift_value : float = 1.2
+@export var decrease_health_with_shift : float = 40
 @export var attack_damage : float = 32
 @export var normal_damage : float = 5
 var state : STATE = STATE.IDLE
 @onready var sprite_animation : AnimatedSprite2D = $AnimatedSprite2D
 var direction : float = 1.0
 var is_player_entered : bool = false
+var can_use_shift : bool = false
 @export var speed : float = 110
 @onready var raycast_left_bottom : RayCast2D = $RayCastNodes/LeftBottomRayCast
 @onready var raycast_right_bottom : RayCast2D = $RayCastNodes/RightBottomRayCast
@@ -40,6 +44,10 @@ var can_attack : bool = false
 #@onready var area_right : Area2D = $AreaNodes/AreaRight
 
 func _ready() -> void:
+	
+	health = max_health
+	PlayerManager.shift_signal.connect(shift_function)
+	
 	timer_attack.wait_time = attack_timer
 	if not timer_attack.timeout.is_connected(timer_attack_timeout) :
 		timer_attack.timeout.connect(timer_attack_timeout)
@@ -324,3 +332,24 @@ func timer_attack_timeout() -> void :
 	if not is_inside_tree() or player == null or state==STATE.HURT or state == STATE.DEATH or not can_attack:
 		return
 	change_state(STATE.ATTACK)
+
+
+func shift_function() -> void :
+	if not can_use_shift :
+		return
+		
+	take_damage(decrease_health_with_shift)
+	attack_damage *= shift_value
+	# BEGIN DEBUG
+	if OS.is_debug_build() :
+		print("shift for boss")
+	# END DEBUG
+
+
+
+func _on_shift_area_area_entered(area: Area2D) -> void:
+	can_use_shift = true
+
+
+func _on_shift_area_area_exited(area: Area2D) -> void:
+	can_use_shift = false
