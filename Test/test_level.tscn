@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://2cjw5l02fgaq" path="res://Scenes/Objects/heal_item.tscn" id="3_m3pee"]
 [ext_resource type="PackedScene" uid="uid://qr5hqk5jd53y" path="res://Scenes/Enemies/simple_enemy1.tscn" id="4_o8dmv"]
 [ext_resource type="PackedScene" uid="uid://vffnmsmle86r" path="res://Scenes/Traps/trap1.tscn" id="5_o8dmv"]
+[ext_resource type="PackedScene" uid="uid://bsmc0lh868irh" path="res://Scenes/Traps/trap2.tscn" id="6_xiefr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dmxo2"]
 resource_local_to_scene = true
@@ -88,3 +89,6 @@ can_chase_player = true
 
 [node name="StaticBody2D5" parent="." unique_id=135394424 instance=ExtResource("5_o8dmv")]
 position = Vector2(419, 261)
+
+[node name="Trap2StaticBody" parent="." unique_id=285233920 instance=ExtResource("6_xiefr")]
+position = Vector2(315, 269)
