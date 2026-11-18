@@ -14,6 +14,7 @@ var health : float = 30
 @export var shift_value : float = 1.5
 @export var fire_damage : float = 10
 @export var normal_damage : float = 5
+var is_edge : bool = false
 var can_use_shift : bool = false
 var state : STATE = STATE.IDLE
 @onready var sprite_animation : AnimatedSprite2D = $SimpleEnemy2AnimatedSprite2D
@@ -60,9 +61,9 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 
 	# Handle enemy movement
+	change_direction()
 	if state == STATE.RUN and player != null:
 		should_move = true
-		change_direction()
 		if  global_position.distance_to(player.global_position) <= distance :
 			if PlayerManager.flip_h and not sprite_animation.flip_h :
 				if global_position.x < player.global_position.x :
@@ -71,28 +72,40 @@ func _physics_process(delta: float) -> void:
 				if player.global_position.x < global_position.x :
 					should_move = false
 				
-		if is_on_floor() and should_move:
+		if is_on_floor() and should_move and not is_edge:
 			velocity.x = speed * direction
 		
 	move_and_slide()
 	# Animation Handle
-	update_flip_h()
+	if not is_edge :
+		update_flip_h()
 	update_animation()
 	
 func change_direction() -> void :
-	# Handle direction
-	if not raycast_left_bottom.is_colliding() and not raycast_right_bottom.is_colliding() :
-		return
+	if can_chase_player and player != null :
+		if not raycast_left_bottom.is_colliding() and not raycast_right_bottom.is_colliding() :
+			return
 		
-	elif raycast_left.is_colliding() or not raycast_left_bottom.is_colliding() :
-		direction = 1
-	
-	elif raycast_right.is_colliding() or not raycast_right_bottom.is_colliding() :
-		direction = -1
+		chase_player() 
+		
+		if (raycast_left.is_colliding() or not raycast_left_bottom.is_colliding()) and (direction == -1) :
+			if state != STATE.DEATH and state != STATE.HURT :
+				is_edge = true
+					
+		elif (raycast_right.is_colliding() or not raycast_right_bottom.is_colliding()) and (direction == 1) :
+			if state != STATE.DEATH and state != STATE.HURT :
+				is_edge = true
+		
+		else : 
+			is_edge = false
+		
 	
 	else :
-		if can_chase_player and player != null :
-			chase_player()
+		if raycast_left.is_colliding() or not raycast_left_bottom.is_colliding() :
+			direction = 1
+	
+		elif raycast_right.is_colliding() or not raycast_right_bottom.is_colliding() :
+			direction = -1
 		
 func change_state(new_state : STATE) -> void:
 	if new_state != state and state != STATE.DEATH :
@@ -104,7 +117,7 @@ func update_animation() -> void :
 		return
 	# Animation Handle
 	if is_on_floor() :
-		if is_distance_ok and is_player_entered and global_position.distance_to(player.global_position) > distance :
+		if not is_edge and is_distance_ok and is_player_entered and global_position.distance_to(player.global_position) > distance :
 			change_state(STATE.RUN)
 		
 		else:
