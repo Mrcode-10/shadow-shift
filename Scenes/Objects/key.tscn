@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://dngj1g5emk7y0"]
+
+[ext_resource type="Texture2D" uid="uid://dxmbdbnvmx03f" path="res://Assets/craftpix/Objects/Items.png" id="1_a62l7"]
+[ext_resource type="Script" uid="uid://3bdjus205iwg" path="res://Scripts/Objects/key.gd" id="1_ptys0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ptys0"]
+atlas = ExtResource("1_a62l7")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r6ihe"]
+atlas = ExtResource("1_a62l7")
+region = Rect2(112, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hmdd4"]
+atlas = ExtResource("1_a62l7")
+region = Rect2(112, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f7bl3"]
+atlas = ExtResource("1_a62l7")
+region = Rect2(112, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aqvnf"]
+atlas = ExtResource("1_a62l7")
+region = Rect2(112, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d7guv"]
+atlas = ExtResource("1_a62l7")
+region = Rect2(112, 80, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0afso"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ptys0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r6ihe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hmdd4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f7bl3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aqvnf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d7guv")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_a62l7"]
+
+[node name="KeyArea" type="Area2D" unique_id=79229453]
+scale = Vector2(3, 3)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_ptys0")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=83767464]
+sprite_frames = SubResource("SpriteFrames_0afso")
+autoplay = "default"
+frame_progress = 0.3135912
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1093572993]
+shape = SubResource("CircleShape2D_a62l7")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -8,7 +8,7 @@ var player_alive : bool = true
 
 var player_can_get_damage : bool = true
 
-var has_key : bool = true
+var has_key : bool = false
 
 var flip_h = false
 
@@ -58,6 +58,7 @@ func reset() -> void :
 	playing_time = 0
 	player_alive = true
 	player_can_get_damage = true
+	has_key = false
 
 func  invincibility_frames() -> void :
 	#  Add a short invincibility window after taking damage 
