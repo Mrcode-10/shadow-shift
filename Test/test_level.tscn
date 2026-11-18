@@ -2,10 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dnhg5k0ua40s5" path="res://icon.svg" id="1_sgx7r"]
 [ext_resource type="PackedScene" uid="uid://b3mb13u0qtydg" path="res://Scenes/Player/player.tscn" id="2_dmxo2"]
-[ext_resource type="PackedScene" uid="uid://dmf17xxjqfv3p" path="res://Scenes/Enemies/simple_enemy3.tscn" id="4_xiefr"]
-[ext_resource type="PackedScene" uid="uid://qr5hqk5jd53y" path="res://Scenes/Enemies/simple_enemy1.tscn" id="5_vgsii"]
-[ext_resource type="PackedScene" uid="uid://2j8wng40e6vn" path="res://Scenes/Enemies/simple_enemy2.tscn" id="6_hgg0r"]
-[ext_resource type="PackedScene" uid="uid://87qcdp15bgsw" path="res://Scenes/Enemies/simple_enemy_4.tscn" id="6_xiefr"]
+[ext_resource type="PackedScene" uid="uid://crf7kdae5d70q" path="res://Scenes/Objects/door.tscn" id="3_ckmih"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dmxo2"]
 resource_local_to_scene = true
@@ -77,19 +74,8 @@ scale = Vector2(5.38, 1.0546875)
 texture = ExtResource("1_sgx7r")
 
 [node name="PlayerCharacterBody2D" parent="." unique_id=264225744 instance=ExtResource("2_dmxo2")]
+z_index = 1
 position = Vector2(73, -145)
 
-[node name="EnemyCharacterBody2D" parent="." unique_id=669891633 instance=ExtResource("5_vgsii")]
-position = Vector2(1281, 892)
-can_chase_player = true
-
-[node name="SimpleEnemy4CharacterBody2D" parent="." unique_id=1244695735 instance=ExtResource("6_xiefr")]
-position = Vector2(1662, 945)
-
-[node name="SimpleEnemy2CharacterBody2D" parent="." unique_id=1125653296 instance=ExtResource("6_hgg0r")]
-position = Vector2(1130, 913)
-can_chase_player = true
-
-[node name="SimpleEnemy3CharacterBody2D" parent="." unique_id=2067657646 instance=ExtResource("4_xiefr")]
-position = Vector2(1550, 878)
-can_chase_player = true
+[node name="DoorArea" parent="." unique_id=663707445 instance=ExtResource("3_ckmih")]
+position = Vector2(350, 279)
