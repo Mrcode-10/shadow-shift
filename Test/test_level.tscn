@@ -2,8 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://dnhg5k0ua40s5" path="res://icon.svg" id="1_sgx7r"]
 [ext_resource type="PackedScene" uid="uid://b3mb13u0qtydg" path="res://Scenes/Player/player.tscn" id="2_dmxo2"]
-[ext_resource type="PackedScene" uid="uid://crf7kdae5d70q" path="res://Scenes/Objects/door.tscn" id="3_ckmih"]
-[ext_resource type="PackedScene" uid="uid://dngj1g5emk7y0" path="res://Scenes/Objects/key.tscn" id="4_m3pee"]
+[ext_resource type="PackedScene" uid="uid://2cjw5l02fgaq" path="res://Scenes/Objects/heal_item.tscn" id="3_m3pee"]
+[ext_resource type="PackedScene" uid="uid://qr5hqk5jd53y" path="res://Scenes/Enemies/simple_enemy1.tscn" id="4_o8dmv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dmxo2"]
 resource_local_to_scene = true
@@ -78,8 +78,9 @@ texture = ExtResource("1_sgx7r")
 z_index = 1
 position = Vector2(73, -145)
 
-[node name="DoorArea" parent="." unique_id=663707445 instance=ExtResource("3_ckmih")]
-position = Vector2(350, 279)
+[node name="HealItemArea" parent="." unique_id=1123542814 instance=ExtResource("3_m3pee")]
+position = Vector2(520, 249)
 
-[node name="KeyArea" parent="." unique_id=79229453 instance=ExtResource("4_m3pee")]
-position = Vector2(197, 272)
+[node name="EnemyCharacterBody2D" parent="." unique_id=669891633 instance=ExtResource("4_o8dmv")]
+position = Vector2(240, 244)
+can_chase_player = true
