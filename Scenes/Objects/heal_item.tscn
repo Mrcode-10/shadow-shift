@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://2cjw5l02fgaq"]
+
+[ext_resource type="Script" uid="uid://ux4lyo2nnmpd" path="res://Scripts/Objects/heal_item.gd" id="1_0nvul"]
+[ext_resource type="Texture2D" uid="uid://dxmbdbnvmx03f" path="res://Assets/craftpix/Objects/Items.png" id="1_nm8oa"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0nvul"]
+atlas = ExtResource("1_nm8oa")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gte6q"]
+atlas = ExtResource("1_nm8oa")
+region = Rect2(64, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rt6w5"]
+atlas = ExtResource("1_nm8oa")
+region = Rect2(64, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_34rtj"]
+atlas = ExtResource("1_nm8oa")
+region = Rect2(64, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w0t1s"]
+atlas = ExtResource("1_nm8oa")
+region = Rect2(64, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_voloe"]
+atlas = ExtResource("1_nm8oa")
+region = Rect2(64, 80, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gtiic"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0nvul")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gte6q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rt6w5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_34rtj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w0t1s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_voloe")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pwe8y"]
+
+[node name="HealItemArea" type="Area2D" unique_id=1123542814]
+scale = Vector2(3, 3)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_0nvul")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1909207962]
+position = Vector2(0, -1)
+sprite_frames = SubResource("SpriteFrames_gtiic")
+autoplay = "default"
+frame_progress = 0.14914419
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1943756002]
+shape = SubResource("CircleShape2D_pwe8y")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
