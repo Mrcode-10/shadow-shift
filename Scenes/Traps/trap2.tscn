@@ -95,6 +95,7 @@ height = 38.0
 
 [node name="Trap2StaticBody" type="StaticBody2D" unique_id=285233920]
 scale = Vector2(3, 3)
+collision_mask = 7
 script = ExtResource("1_sj4qo")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1857891566]
@@ -107,7 +108,7 @@ shape = SubResource("CircleShape2D_mfi4f")
 
 [node name="TrapArea2D" type="Area2D" parent="." unique_id=1058809327]
 collision_layer = 0
-collision_mask = 2
+collision_mask = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TrapArea2D" unique_id=136904785]
 position = Vector2(0, 7.666667)
