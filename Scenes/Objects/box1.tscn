@@ -105,5 +105,5 @@ position = Vector2(0, 8.333334)
 [node name="Timer" type="Timer" parent="." unique_id=2128136400]
 autostart = true
 
-[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="animated_sprite_2d_animation_finished"]
 [connection signal="timeout" from="Timer" to="." method="timer_timeout"]
