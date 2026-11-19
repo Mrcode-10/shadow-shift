@@ -1,0 +1,77 @@
+[gd_scene format=3 uid="uid://bhfg8h6d0gh0f"]
+
+[ext_resource type="Script" uid="uid://b4k1p7cwntlsv" path="res://Scripts/Traps/trap5.gd" id="1_bvrse"]
+[ext_resource type="Texture2D" uid="uid://dk07pf754ooi5" path="res://Assets/craftpix/Traps/Trap5.png" id="2_j711x"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nfxw0"]
+atlas = ExtResource("2_j711x")
+region = Rect2(0, 0, 48, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ktf1"]
+atlas = ExtResource("2_j711x")
+region = Rect2(48, 0, 48, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0bh1q"]
+atlas = ExtResource("2_j711x")
+region = Rect2(96, 0, 48, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fdi5j"]
+atlas = ExtResource("2_j711x")
+region = Rect2(144, 0, 48, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bvrse"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nfxw0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ktf1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0bh1q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fdi5j")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 20.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j711x"]
+radius = 9.000001
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nfxw0"]
+radius = 23.0
+
+[node name="Trap5StaticBody2D" type="StaticBody2D" unique_id=1256681822]
+scale = Vector2(3, 3)
+collision_mask = 7
+script = ExtResource("1_bvrse")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=187765379]
+sprite_frames = SubResource("SpriteFrames_bvrse")
+autoplay = "default"
+frame = 2
+frame_progress = 0.95415676
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1275409247]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_j711x")
+
+[node name="TrapArea2D" type="Area2D" parent="." unique_id=1501882709]
+position = Vector2(0, 2.3333335)
+collision_layer = 0
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TrapArea2D" unique_id=145227766]
+position = Vector2(1, -1.3333335)
+shape = SubResource("CircleShape2D_nfxw0")
+
+[node name="Timer" type="Timer" parent="." unique_id=1003848720]
+process_callback = 0
+wait_time = 2.0
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="timer_timeout"]
