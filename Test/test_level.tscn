@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://bhfg8h6d0gh0f" path="res://Scenes/Traps/trap5.tscn" id="12_fjxp8"]
 [ext_resource type="PackedScene" uid="uid://bl50cfsc04644" path="res://Scenes/Objects/box1.tscn" id="13_ad4dk"]
 [ext_resource type="PackedScene" uid="uid://bddvlpuiuc27w" path="res://Scenes/Objects/box2.tscn" id="14_g6xwg"]
+[ext_resource type="PackedScene" uid="uid://cqhfbc5n61idy" path="res://Scenes/Objects/box3.tscn" id="15_s7fap"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dmxo2"]
 resource_local_to_scene = true
@@ -127,3 +128,6 @@ position = Vector2(1189, 782)
 
 [node name="StaticBody2D6" parent="." unique_id=1634315653 instance=ExtResource("14_g6xwg")]
 position = Vector2(1688, 831)
+
+[node name="Box3StaticBody2D" parent="." unique_id=1267224998 instance=ExtResource("15_s7fap")]
+position = Vector2(1470, 764)
