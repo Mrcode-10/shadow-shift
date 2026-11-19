@@ -114,4 +114,4 @@ position = Vector2(1359, 818)
 position = Vector2(1058, 786)
 
 [node name="Trap3StaticBody2D" parent="." unique_id=356643435 instance=ExtResource("11_377a6")]
-position = Vector2(525, 244)
+position = Vector2(633, 231)
