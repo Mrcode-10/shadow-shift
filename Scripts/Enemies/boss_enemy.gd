@@ -224,6 +224,7 @@ func take_damage(damage_number:float) -> void :
 
 func death() -> void :
 	damage_to_player_area.set_deferred("monitoring" , false)
+	BoxBase.turn_off()
 	if not damage_to_player_timer.is_stopped() :
 		damage_to_player_timer.stop()
 	change_state(STATE.DEATH)
