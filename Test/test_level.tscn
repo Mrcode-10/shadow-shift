@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://dmf17xxjqfv3p" path="res://Scenes/Enemies/simple_enemy3.tscn" id="8_377a6"]
 [ext_resource type="PackedScene" uid="uid://dnjpotry0iwb3" path="res://Scenes/Enemies/boss_enemy.tscn" id="9_fjxp8"]
 [ext_resource type="PackedScene" uid="uid://2j8wng40e6vn" path="res://Scenes/Enemies/simple_enemy2.tscn" id="10_ad4dk"]
+[ext_resource type="PackedScene" uid="uid://5mnhk3exeemq" path="res://Scenes/Traps/trap3.tscn" id="11_377a6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dmxo2"]
 resource_local_to_scene = true
@@ -111,3 +112,6 @@ position = Vector2(1359, 818)
 
 [node name="EnemyCharacterBody2D2" parent="." unique_id=1573181399 instance=ExtResource("4_o8dmv")]
 position = Vector2(1058, 786)
+
+[node name="Trap3StaticBody2D" parent="." unique_id=356643435 instance=ExtResource("11_377a6")]
+position = Vector2(525, 244)
