@@ -323,8 +323,6 @@ func _on_attack_right_area_body_entered(body: Node2D) -> void:
 func _on_attack_right_area_body_exited(body: Node2D) -> void:
 	if body is not Player :
 		return
-	if not is_inside_tree() or state == STATE.HURT or state == STATE.DEATH :
-		return
 	finish_attack()
 	can_attack = false
 
@@ -334,10 +332,12 @@ func _on_attack_left_area_body_entered(body: Node2D) -> void:
 		return
 	# after little delay attack to player
 	await get_tree().create_timer(first_attack_delay).timeout
+	if not is_inside_tree() or not attack_left_area.overlaps_body(body) or player == null or state==STATE.HURT or state == STATE.DEATH :
+		return
 	change_state(STATE.ATTACK)
+	can_attack = true
 	if timer_attack.is_stopped() :
 		timer_attack.start()
-	can_attack = true
 
 
 func _on_attack_left_area_body_exited(body: Node2D) -> void:
