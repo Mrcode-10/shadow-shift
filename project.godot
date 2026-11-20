@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 PlayerManager="*uid://388oofgybhhq"
+BossManager="*uid://cloywubr1s2pc"
 
 [display]
 

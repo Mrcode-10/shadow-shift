@@ -310,7 +310,6 @@ scale = Vector2(3, 3)
 collision_layer = 4
 script = ExtResource("1_bkiaa")
 speed = 200.0
-can_chase_player = true
 attack_timer = 1.0
 first_attack_delay = 0.2
 

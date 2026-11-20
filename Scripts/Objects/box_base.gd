@@ -48,8 +48,13 @@ func animated_sprite_2d_animation_finished() -> void:
 		change_state(STATE.DEFAULT)
 
 func spawn_enemy() -> void :
+	var random_number : int = randi_range(0 , 99)
 	var enemy : Node2D = enemy_file.instantiate()
 	enemy.global_position = target_point.global_position
+	if random_number % 2 == 0 : 
+		enemy.can_chase_player = true
+	else :
+		enemy.can_chase_player = false
 	get_tree().current_scene.add_child(enemy)
 
 func turn_off() -> void :
