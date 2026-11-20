@@ -12,10 +12,11 @@ var state : STATE = STATE.DEFAULT
 @onready var timer : Timer = $Timer
 var enemy_file = preload("res://Scenes/Enemies/simple_enemy1.tscn")
 @export var timer_time : float = 10
-static var flag : bool = true
+var flag : bool = true
 
 
 func _ready() -> void:
+	BossManager.boss_dead.connect(turn_off)
 	timer.wait_time = timer_time
 	flag = true
 	
@@ -51,5 +52,5 @@ func spawn_enemy() -> void :
 	enemy.global_position = target_point.global_position
 	get_tree().current_scene.add_child(enemy)
 
-static func turn_off() -> void :
+func turn_off() -> void :
 	flag = false

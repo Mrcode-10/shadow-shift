@@ -50,6 +50,7 @@ func _ready() -> void:
 	if not timer_attack.timeout.is_connected(timer_attack_timeout) :
 		timer_attack.timeout.connect(timer_attack_timeout)
 	PlayerManager.shift_signal.connect(shift_function)
+	BossManager.boss_dead.connect(boss_dead_function)
 
 func _physics_process(delta: float) -> void:
 	velocity.x = 0
@@ -392,8 +393,9 @@ func _on_damage_to_player_timeout() -> void:
 	player.take_damage_for_player(normal_damage)
 
 func shift_function() -> void :
-	if not can_use_shit :
+	if not can_use_shit and state == STATE.DEATH:
 		return
+	is_invulnerable_or_dead = false
 	if health > max_health / 2 :
 		health = max_health
 		fire_damage *= shift_value
@@ -410,7 +412,6 @@ func shift_function() -> void :
 
 
 func _on_shift_area_area_entered(area: Area2D) -> void:
-	print("Mani ✌😎")
 	can_use_shit = true
 	
 
@@ -418,3 +419,10 @@ func _on_shift_area_area_entered(area: Area2D) -> void:
 
 func _on_shift_area_area_exited(area: Area2D) -> void:
 	can_use_shit = false
+
+
+func boss_dead_function() -> void :
+	if state == STATE.DEATH :
+		return
+	is_invulnerable_or_dead = false
+	take_damage(1000)
