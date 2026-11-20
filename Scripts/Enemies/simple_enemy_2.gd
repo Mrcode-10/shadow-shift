@@ -47,6 +47,8 @@ var should_move : bool = false
 
 func _ready() -> void:
 	
+	BossManager.boss_dead.connect(boss_dead_function)
+	
 	health = max_health
 	
 	PlayerManager.shift_signal.connect(shift_function)
@@ -429,3 +431,9 @@ func _on_shift_area_area_entered(area: Area2D) -> void:
 
 func _on_shift_area_area_exited(area: Area2D) -> void:
 	can_use_shift = false
+
+func boss_dead_function() -> void :
+	if state == STATE.DEATH :
+		return
+	is_invulnerable_or_dead = false
+	take_damage(1000)

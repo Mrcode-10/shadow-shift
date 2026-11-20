@@ -32,17 +32,11 @@ var is_invulnerable_or_dead : bool = false
 @onready var timer_attack : Timer = $TimerNodes/AttackTimer
 @export var attack_timer : float = 2
 var player : Node2D
-#var is_player_in_area_left : bool = false
-#var is_player_in_area_right : bool = false
-#@onready var target_left : Node2D = $TargetNodes/LeftTarget
-#@onready var target_right : Node2D = $TargetNodes/RightTarget
 @export var first_attack_delay : float = 1
 @export var distance : float = 50
 var is_edge : bool = false
 var should_move : bool = false
 var can_attack : bool = false
-#@onready var area_left : Area2D = $AreaNodes/AreaLeft
-#@onready var area_right : Area2D = $AreaNodes/AreaRight
 
 func _ready() -> void:
 	
@@ -224,7 +218,7 @@ func take_damage(damage_number:float) -> void :
 
 func death() -> void :
 	damage_to_player_area.set_deferred("monitoring" , false)
-	BoxBase.turn_off()
+	BossManager.boss_dead.emit()
 	if not damage_to_player_timer.is_stopped() :
 		damage_to_player_timer.stop()
 	change_state(STATE.DEATH)
