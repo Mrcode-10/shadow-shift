@@ -17,6 +17,8 @@ static var flag : bool = true
 
 func _ready() -> void:
 	timer.wait_time = timer_time
+	flag = true
+	
 
 func change_state(new_state : STATE) :
 	if new_state != state :
@@ -38,14 +40,16 @@ func timer_timeout() -> void :
 
 func animated_sprite_2d_animation_finished() -> void:
 	if animation_sprite.animation == "open" :
-		var enemy : Node2D = enemy_file.instantiate()
-		enemy.global_position = target_point.global_position
-		get_tree().current_scene.add_child(enemy)
+		if flag :
+			spawn_enemy()
 		change_state(STATE.CLOSE)
 	elif animation_sprite.animation == "close" :
 		change_state(STATE.DEFAULT)
 
-
+func spawn_enemy() -> void :
+	var enemy : Node2D = enemy_file.instantiate()
+	enemy.global_position = target_point.global_position
+	get_tree().current_scene.add_child(enemy)
 
 static func turn_off() -> void :
 	flag = false
