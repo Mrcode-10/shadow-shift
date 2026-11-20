@@ -94,10 +94,7 @@ timer_time = 120.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=999237536]
 sprite_frames = SubResource("SpriteFrames_8o40l")
-animation = &"open"
 autoplay = "default"
-frame = 3
-frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=443385765]
 position = Vector2(-0.66666675, -4.5)
