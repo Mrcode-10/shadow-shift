@@ -23,6 +23,7 @@ var fire_file = preload("res://Scenes/Player/fire.tscn")
 @onready var fire_right_target : Node2D = $FireTargetNodes/FireRightTarget
 @onready var fire_left_target : Node2D = $FireTargetNodes/FireLeftTarget
 @onready var shift_timer : Timer = $Timers/ShiftTimer
+@onready var stomp_area_2d: Area2D = $StompArea2D
 
 
 func _ready() -> void:
@@ -243,6 +244,7 @@ func player_get_hurt_function() -> void :
 	
 func player_death_function() -> void :
 	is_player_dead = true
+	stomp_area_2d.set_deferred("monitoring" , false)
 	disconnect_attack_functions_when_get_hurt_die()
 	
 func coyote_jump_timer_timeout() -> void : 
@@ -299,6 +301,8 @@ func take_damage_for_player(damage : float) -> void :
 
 
 func _on_stomp_area_2d_body_entered(body: Node2D) -> void:
+	if is_player_dead : 
+		return
 	# DEBUG BEGIN
 	if OS.is_debug_build() :
 		print("Stomp")
