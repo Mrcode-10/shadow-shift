@@ -13,10 +13,14 @@ var state : STATE = STATE.IDLE
 var is_player_dead : bool = false
 var can_use_shift : bool = true
 var fire_file = preload("res://Scenes/Player/fire.tscn")
+var stomp_count : int = 0
+@export var stomp_timer_wait_time : float = 5
 @export var reload_time : float = 3
 @export var speed : float = 300.0
 @export var jump_velocity : float = -400.0
 @export var hard_landing_time_number : float = 0.5
+@export var max_stomp : int = 3
+@onready var stomp_timer : Timer = $Timers/StompTimer
 @onready var animation_sprite : AnimatedSprite2D = $PlayerAnimatedSprite2D
 @onready var hard_landing_timer : Timer = $Timers/HardLandingTimer
 @onready var coyote_jump_timer : Timer = $Timers/CoyoteJumpTimer
@@ -43,6 +47,8 @@ func _ready() -> void:
 		shift_timer.timeout.connect(shift_timer_timeout)
 	# set timers wait timer
 	hard_landing_timer.wait_time = hard_landing_time_number
+	# set stomp timer wait time
+	stomp_timer.wait_time = stomp_timer_wait_time
 
 func _physics_process(delta: float) -> void:
 	update_flip_h()
@@ -64,6 +70,10 @@ func _physics_process(delta: float) -> void:
 			coyote_jump_timer.start()
 	
 	else :
+		stomp_count_reset()
+		if not stomp_timer.is_stopped() :
+			stomp_timer.stop()
+			stomp_area_2d.set_deferred("monitoring" , true)
 		# Landing handle
 		if can_player_hard_landing and state != STATE.DEATH and state != STATE.HURT :
 			change_state(STATE.LAND)
@@ -309,7 +319,11 @@ func _on_stomp_area_2d_body_entered(body: Node2D) -> void:
 	# DEBUG END 
 	if body.has_method("take_damage") and velocity.y > 0:
 		body.take_damage(stomp_damage)
+		stomp_count += 1
 		velocity.y += jump_velocity * 2
+		if stomp_count == max_stomp :
+			stomp_area_2d.set_deferred("monitoring" , false)
+			stomp_timer.start()
 		# DEBUG BEGIN
 		if OS.is_debug_build() :
 			print("Stomp Damage")
@@ -320,3 +334,13 @@ func shift_timer_timeout() -> void :
 	if is_player_dead : 
 		return
 	can_use_shift = true
+
+
+func _on_stomp_timer_timeout() -> void:
+	if not is_player_dead :
+		stomp_area_2d.set_deferred("monitoring" , true)
+		stomp_count_reset()
+		
+		
+func stomp_count_reset() -> void :
+	stomp_count = 0

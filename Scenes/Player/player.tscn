@@ -373,6 +373,10 @@ process_callback = 0
 wait_time = 8.0
 one_shot = true
 
+[node name="StompTimer" type="Timer" parent="Timers" unique_id=1091798307]
+wait_time = 2.0
+one_shot = true
+
 [node name="FireTargetNodes" type="Node2D" parent="." unique_id=692163625]
 
 [node name="FireLeftTarget" type="Node2D" parent="FireTargetNodes" unique_id=1352728976]
@@ -399,4 +403,5 @@ shape = SubResource("RectangleShape2D_gtiic")
 [connection signal="animation_finished" from="PlayerAnimatedSprite2D" to="." method="_on_player_animated_sprite_2d_animation_finished"]
 [connection signal="timeout" from="Timers/CoyoteJumpTimer" to="." method="coyote_jump_timer_timeout"]
 [connection signal="timeout" from="Timers/HardLandingTimer" to="." method="hard_landing_timer_timeout"]
+[connection signal="timeout" from="Timers/StompTimer" to="." method="_on_stomp_timer_timeout"]
 [connection signal="body_entered" from="StompArea2D" to="." method="_on_stomp_area_2d_body_entered"]
