@@ -104,18 +104,23 @@ position = Vector2(419, 261)
 position = Vector2(315, 269)
 
 [node name="SimpleEnemy4CharacterBody2D" parent="." unique_id=1244695735 instance=ExtResource("7_lgstu")]
+visible = false
 position = Vector2(1225, 951)
 
 [node name="BossCharacterBody2D" parent="." unique_id=1454301671 instance=ExtResource("9_fjxp8")]
+visible = false
 position = Vector2(1642, 671)
 
 [node name="SimpleEnemy3CharacterBody2D" parent="." unique_id=2067657646 instance=ExtResource("8_377a6")]
+visible = false
 position = Vector2(1482, 951)
 
 [node name="SimpleEnemy2CharacterBody2D" parent="." unique_id=1125653296 instance=ExtResource("10_ad4dk")]
+visible = false
 position = Vector2(1359, 818)
 
 [node name="EnemyCharacterBody2D2" parent="." unique_id=1573181399 instance=ExtResource("4_o8dmv")]
+visible = false
 position = Vector2(1058, 786)
 
 [node name="Trap3StaticBody2D" parent="." unique_id=356643435 instance=ExtResource("11_377a6")]
