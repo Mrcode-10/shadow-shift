@@ -256,14 +256,14 @@ func _on_wake_up_area_2d_body_exited(body: Node2D) -> void:
 
 func attack() -> void :
 	# Attack handle
-	if is_player_in_area_left and sprite_animation.flip_h :
+	if sprite_animation.flip_h :
 		spawn_fire(-1 , target_left)
 		#DEBUG BEGIN
 		if OS.is_debug_build() :
 			print("Player in left" + " enemy flip h : " + str(sprite_animation.flip_h))
 		#DEBUG END
 	
-	if is_player_in_area_right and not sprite_animation.flip_h :
+	if not sprite_animation.flip_h :
 		spawn_fire(1 , target_right)
 		#DEBUG BEGIN
 		if OS.is_debug_build() :
