@@ -218,6 +218,8 @@ func take_damage(damage_number:float) -> void :
 
 
 func death() -> void :
+	collision_shape_left.set_deferred("disabled" , true)
+	collision_shape_right.set_deferred("disabled" , true)
 	damage_to_player_left.set_deferred("monitoring" , false)
 	damage_to_player_right.set_deferred("monitoring" , false)
 	if not damage_to_player_timer.is_stopped() :

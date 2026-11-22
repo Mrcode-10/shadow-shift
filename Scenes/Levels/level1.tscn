@@ -736,7 +736,7 @@ position = Vector2(13536, 576)
 position = Vector2(13800.001, 576)
 
 [node name="PlayerCharacterBody2D" parent="." unique_id=264225744 instance=ExtResource("6_m0h5h")]
-position = Vector2(259, 554)
+position = Vector2(575, 411)
 
 [node name="Camera2D" type="Camera2D" parent="PlayerCharacterBody2D" unique_id=1361970713]
 limit_left = 0
