@@ -739,6 +739,15 @@ position = Vector2(13800.001, 576)
 position = Vector2(259, 554)
 
 [node name="Camera2D" type="Camera2D" parent="PlayerCharacterBody2D" unique_id=1361970713]
+limit_left = 0
+limit_top = 0
+limit_right = 17000
+limit_bottom = 2600
+position_smoothing_enabled = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_left_margin = 0.3
+drag_right_margin = 0.3
 
 [node name="enemies" type="Node2D" parent="." unique_id=1919146934]
 
