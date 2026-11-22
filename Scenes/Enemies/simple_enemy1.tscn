@@ -253,6 +253,9 @@ height = 16.666666
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gtiic"]
 size = Vector2(20, 26.333334)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_war6u"]
+size = Vector2(20, 0.33333302)
+
 [node name="EnemyCharacterBody2D" type="CharacterBody2D" unique_id=669891633]
 scale = Vector2(3, 3)
 collision_layer = 4
@@ -260,9 +263,9 @@ script = ExtResource("1_65ks8")
 
 [node name="EnemyAnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1548820235]
 sprite_frames = SubResource("SpriteFrames_gtiic")
-animation = &"idle"
+animation = &"attack"
 autoplay = "idle"
-flip_h = true
+frame = 3
 metadata/_edit_lock_ = true
 
 [node name="EnemyCollisionShapeRight" type="CollisionShape2D" parent="." unique_id=2102822208]
@@ -328,10 +331,10 @@ shape = SubResource("RectangleShape2D_w8t04")
 [node name="TargetNodes" type="Node2D" parent="." unique_id=1905428914]
 
 [node name="TargetLeft" type="Node2D" parent="TargetNodes" unique_id=2062437372]
-position = Vector2(-23.666668, 5.3333335)
+position = Vector2(-19, 5)
 
 [node name="TargetRight" type="Node2D" parent="TargetNodes" unique_id=2100875124]
-position = Vector2(17, 5.3333335)
+position = Vector2(20, 5)
 
 [node name="DamageToPlayerAreas" type="Node2D" parent="." unique_id=1145473691]
 
@@ -360,6 +363,11 @@ collision_mask = 32
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ShiftArea" unique_id=628033837]
 position = Vector2(0, 3.166667)
 shape = SubResource("RectangleShape2D_gtiic")
+
+[node name="CollisionShapeBottom" type="CollisionShape2D" parent="." unique_id=1099595524]
+position = Vector2(0.6666667, 14.333334)
+scale = Vector2(0.20000052, 1)
+shape = SubResource("RectangleShape2D_war6u")
 
 [connection signal="animation_finished" from="EnemyAnimatedSprite2D" to="." method="_on_enemy_animated_sprite_2d_animation_finished"]
 [connection signal="frame_changed" from="EnemyAnimatedSprite2D" to="." method="_on_enemy_animated_sprite_2d_frame_changed"]
