@@ -345,6 +345,7 @@ size = Vector2(1031.3334, 418.6667)
 scale = Vector2(3, 3)
 collision_layer = 2
 script = ExtResource("1_cvnsp")
+reload_time = 1.0
 
 [node name="PlayerAnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=701313364]
 sprite_frames = SubResource("SpriteFrames_gtiic")
