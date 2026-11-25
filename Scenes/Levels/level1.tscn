@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://2j8wng40e6vn" path="res://Scenes/Enemies/simple_enemy2.tscn" id="8_hkfpk"]
 [ext_resource type="PackedScene" uid="uid://dmf17xxjqfv3p" path="res://Scenes/Enemies/simple_enemy3.tscn" id="9_hkfpk"]
 [ext_resource type="PackedScene" uid="uid://87qcdp15bgsw" path="res://Scenes/Enemies/simple_enemy_4.tscn" id="10_ir7pk"]
+[ext_resource type="Script" uid="uid://c1wd4bji8f7yr" path="res://Scripts/Player/player_camera.gd" id="11_xe7un"]
 [ext_resource type="PackedScene" uid="uid://5mnhk3exeemq" path="res://Scenes/Traps/trap3.tscn" id="12_nqasx"]
 [ext_resource type="PackedScene" uid="uid://41lke7pw0h1w" path="res://Scenes/Traps/trap4.tscn" id="13_ryjqc"]
 [ext_resource type="PackedScene" uid="uid://bhfg8h6d0gh0f" path="res://Scenes/Traps/trap5.tscn" id="14_xe7un"]
@@ -917,6 +918,7 @@ drag_horizontal_enabled = true
 drag_vertical_enabled = true
 drag_left_margin = 0.3
 drag_right_margin = 0.3
+script = ExtResource("11_xe7un")
 
 [node name="enemies" type="Node2D" parent="." unique_id=1919146934]
 
