@@ -715,28 +715,40 @@ position = Vector2(11321, 1081)
 position = Vector2(11449, 1145)
 
 [node name="StaticBody2D5" parent="Trap1Nodes" unique_id=656381437 instance=ExtResource("5_c0r4e")]
-position = Vector2(11577, 1081)
+position = Vector2(11552, 1120)
 
 [node name="StaticBody2D6" parent="Trap1Nodes" unique_id=369110560 instance=ExtResource("5_c0r4e")]
-position = Vector2(11705, 1017)
+position = Vector2(11648, 1088)
+
+[node name="StaticBody2D12" parent="Trap1Nodes" unique_id=1591651680 instance=ExtResource("5_c0r4e")]
+position = Vector2(11744, 1056)
 
 [node name="StaticBody2D7" parent="Trap1Nodes" unique_id=1471398114 instance=ExtResource("5_c0r4e")]
-position = Vector2(11833, 953)
+position = Vector2(11840, 1024)
+
+[node name="StaticBody2D13" parent="Trap1Nodes" unique_id=323326266 instance=ExtResource("5_c0r4e")]
+position = Vector2(11936, 992)
 
 [node name="StaticBody2D8" parent="Trap1Nodes" unique_id=902462313 instance=ExtResource("5_c0r4e")]
-position = Vector2(12025, 953)
+position = Vector2(12040, 960.00006)
 
 [node name="StaticBody2D9" parent="Trap1Nodes" unique_id=1119722685 instance=ExtResource("5_c0r4e")]
-position = Vector2(12217, 953)
+position = Vector2(12160, 960.00006)
 
 [node name="StaticBody2D10" parent="Trap1Nodes" unique_id=1320062364 instance=ExtResource("5_c0r4e")]
-position = Vector2(13536, 576)
+position = Vector2(13504, 888)
 
 [node name="StaticBody2D11" parent="Trap1Nodes" unique_id=856343240 instance=ExtResource("5_c0r4e")]
-position = Vector2(13800.001, 576)
+position = Vector2(13632, 888)
+
+[node name="StaticBody2D14" parent="Trap1Nodes" unique_id=595165706 instance=ExtResource("5_c0r4e")]
+position = Vector2(13760, 888)
+
+[node name="StaticBody2D15" parent="Trap1Nodes" unique_id=665630795 instance=ExtResource("5_c0r4e")]
+position = Vector2(13888.001, 888)
 
 [node name="PlayerCharacterBody2D" parent="." unique_id=264225744 instance=ExtResource("6_m0h5h")]
-position = Vector2(575, 411)
+position = Vector2(232, 448.00003)
 
 [node name="Camera2D" type="Camera2D" parent="PlayerCharacterBody2D" unique_id=1361970713]
 limit_left = 0
@@ -750,6 +762,7 @@ drag_left_margin = 0.3
 drag_right_margin = 0.3
 
 [node name="enemies" type="Node2D" parent="." unique_id=1919146934]
+visible = false
 
 [node name="EnemyCharacterBody2D" parent="enemies" unique_id=669891633 instance=ExtResource("7_i36j2")]
 position = Vector2(1308, 593)
