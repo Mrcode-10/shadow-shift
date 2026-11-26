@@ -909,6 +909,7 @@ rotation = 3.1415927
 position = Vector2(15016, 480.00003)
 
 [node name="Camera2D" type="Camera2D" parent="PlayerCharacterBody2D" unique_id=1361970713]
+position = Vector2(-0.6665039, -0.99998474)
 limit_left = 0
 limit_top = 0
 limit_right = 17000
