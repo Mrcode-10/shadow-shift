@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="ShadowShift"
-run/main_scene="uid://b0kt55tg2hhg6"
+run/main_scene="uid://ddhf3tswduiej"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
