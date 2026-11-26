@@ -69,4 +69,17 @@ func _on_body_entered(body: Node2D) -> void:
 		tween.kill()
 	set_deferred("monitoring" , false )
 	change_state(STATE.HIT)
-		
+
+
+func _on_area_entered(area:Node2D) -> void:
+	if state == STATE.HIT :
+		return
+	# DEBUG BEGIN
+	if OS.is_debug_build() :
+		print("simple enemy 1 fire hit something!")
+	# DEBUG END
+	if area is SimpleEnemyFire or area is SimpleEnemyFire2 or area is SimpleEnemy3 :
+		if tween :
+			tween.kill()
+		set_deferred("monitoring" , false )
+		change_state(STATE.HIT)
