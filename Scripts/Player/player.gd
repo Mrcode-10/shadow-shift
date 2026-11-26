@@ -12,7 +12,7 @@ var can_player_hard_landing : bool = false
 var state : STATE = STATE.IDLE
 var is_player_dead : bool = false
 var can_use_shift : bool = true
-var fire_file = preload("res://Scenes/Player/fire.tscn")
+var fire_file := preload("res://Scenes/Player/fire.tscn")
 var stomp_count : int = 0
 @export var stomp_timer_wait_time : float = 5
 @export var reload_time : float = 3
@@ -28,7 +28,7 @@ var stomp_count : int = 0
 @onready var fire_left_target : Node2D = $FireTargetNodes/FireLeftTarget
 @onready var shift_timer : Timer = $Timers/ShiftTimer
 @onready var stomp_area_2d: Area2D = $StompArea2D
-
+var pause_menu_file := preload("res://Scenes/UI/pause_menu.tscn")
 
 func _ready() -> void:
 	# connect signals to player after simple check connectins
@@ -225,6 +225,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("shift") and not is_player_dead and state != STATE.HURT and can_use_shift :
 		PlayerManager.shift_signal.emit()
 		can_use_shift = false
+		
+	if event.is_action_pressed("pause") and not is_player_dead and state !=STATE.HURT and not get_tree().paused :
+		pause_game_function()
 	
 	# TEST
 	if event.is_action_pressed("TEST_HURT") and OS.is_debug_build() :
@@ -329,12 +332,13 @@ func _on_stomp_area_2d_body_entered(body: Node2D) -> void:
 			print("Stomp Damage")
 		# DEBUG END 
 
-# Shift timer handle
+#----------------------------------  Shift timer handle
 func shift_timer_timeout() -> void :
 	if is_player_dead : 
 		return
 	can_use_shift = true
 
+#--------------------------------- stomp jump part
 
 func _on_stomp_timer_timeout() -> void:
 	if not is_player_dead :
@@ -344,3 +348,11 @@ func _on_stomp_timer_timeout() -> void:
 		
 func stomp_count_reset() -> void :
 	stomp_count = 0
+	
+#------------------------------------- pause menu part
+	
+func pause_game_function() -> void :
+	var pause_menu = pause_menu_file.instantiate()
+	pause_menu.process_mode = Node.PROCESS_MODE_ALWAYS
+	%CanvasLayer.add_child(pause_menu)
+	get_tree().paused = true

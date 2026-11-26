@@ -698,6 +698,9 @@ sources/3 = SubResource("TileSetAtlasSource_ilsv2")
 
 [node name="Node2D" type="Node2D" unique_id=191225613]
 
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2136072003]
+unique_name_in_owner = true
+
 [node name="TileMap" type="TileMap" parent="." unique_id=1624032484]
 position = Vector2(8, 296)
 scale = Vector2(3, 3)
