@@ -14,6 +14,7 @@ var is_player_dead : bool = false
 var can_use_shift : bool = true
 var fire_file := preload("res://Scenes/Player/fire.tscn")
 var stomp_count : int = 0
+var game_over_file := preload("res://Scenes/UI/game_over.tscn")
 @export var stomp_timer_wait_time : float = 5
 @export var reload_time : float = 3
 @export var speed : float = 300.0
@@ -238,8 +239,9 @@ func _unhandled_input(event: InputEvent) -> void:
 func _on_player_animated_sprite_2d_animation_finished() -> void:
 	if animation_sprite.animation == "death" :
 		await get_tree().create_timer(reload_time).timeout
-		PlayerManager.reset()
-		get_tree().reload_current_scene()
+		#PlayerManager.reset()
+		#get_tree().reload_current_scene()
+		game_over_function()
 		return
 		
 	if is_player_dead : 
@@ -358,3 +360,11 @@ func pause_game_function() -> void :
 	pause_menu.process_mode = Node.PROCESS_MODE_ALWAYS
 	%CanvasLayer.add_child(pause_menu)
 	get_tree().paused = true
+
+
+#------------------------------------- game over add to scene
+
+func game_over_function() -> void :
+	var game_over_menu : Control = game_over_file.instantiate()
+	%CanvasLayer.add_child(game_over_menu)
+	

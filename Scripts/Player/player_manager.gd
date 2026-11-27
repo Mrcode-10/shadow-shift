@@ -1,5 +1,11 @@
 extends Node
 
+enum LEVELS {
+	LEVEL1 , BOSS_LEVEL
+}
+
+var level : LEVELS = LEVELS.LEVEL1
+
 var player_damage : float = 20
 
 var invincibility_frames_time : float = 0.5
