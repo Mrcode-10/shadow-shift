@@ -90,6 +90,7 @@ size = Vector2(14.666667, 11)
 [node name="Box1StaticBody2D" type="StaticBody2D" unique_id=776907997]
 scale = Vector2(3, 3)
 script = ExtResource("1_21fra")
+timer_time = 30.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=131010387]
 sprite_frames = SubResource("SpriteFrames_ullld")
