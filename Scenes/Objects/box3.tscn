@@ -90,7 +90,7 @@ size = Vector2(14.666667, 11)
 [node name="Box3StaticBody2D" type="StaticBody2D" unique_id=1267224998]
 scale = Vector2(3, 3)
 script = ExtResource("1_odr3n")
-timer_time = 60.0
+timer_time = 70.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1913635863]
 sprite_frames = SubResource("SpriteFrames_itmt4")
