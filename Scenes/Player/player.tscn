@@ -339,7 +339,7 @@ height = 22.0
 size = Vector2(11.666667, 2.6666656)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gtiic"]
-size = Vector2(1031.3334, 418.6667)
+size = Vector2(639, 366.33337)
 
 [node name="PlayerCharacterBody2D" type="CharacterBody2D" unique_id=264225744]
 scale = Vector2(3, 3)
@@ -399,6 +399,7 @@ collision_layer = 32
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ShiftArea" unique_id=1171583378]
+position = Vector2(0, -3.3333435)
 shape = SubResource("RectangleShape2D_gtiic")
 
 [connection signal="animation_finished" from="PlayerAnimatedSprite2D" to="." method="_on_player_animated_sprite_2d_animation_finished"]

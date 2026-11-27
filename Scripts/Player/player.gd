@@ -29,6 +29,7 @@ var stomp_count : int = 0
 @onready var shift_timer : Timer = $Timers/ShiftTimer
 @onready var stomp_area_2d: Area2D = $StompArea2D
 var pause_menu_file := preload("res://Scenes/UI/pause_menu.tscn")
+@export var shift_timer_time : float = 8
 
 func _ready() -> void:
 	# connect signals to player after simple check connectins
@@ -49,6 +50,7 @@ func _ready() -> void:
 	hard_landing_timer.wait_time = hard_landing_time_number
 	# set stomp timer wait time
 	stomp_timer.wait_time = stomp_timer_wait_time
+	shift_timer.wait_time = shift_timer_time
 
 func _physics_process(delta: float) -> void:
 	update_flip_h()
