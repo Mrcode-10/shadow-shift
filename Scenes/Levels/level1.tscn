@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://ljwq5ntaxh1y"]
 
 [ext_resource type="Texture2D" uid="uid://bl2onp5svu2dt" path="res://Assets/craftpix/Tileset/Background_n_details.png" id="1_0xrym"]
+[ext_resource type="Script" uid="uid://5glw70ocpuy" path="res://Scripts/Levels/level_1.gd" id="1_bvs0b"]
 [ext_resource type="PackedScene" uid="uid://dh3ulfh1tlfb0" path="res://Scenes/UI/hud_v2.tscn" id="1_v3vqe"]
 [ext_resource type="Texture2D" uid="uid://ewo1le7sr051" path="res://Assets/craftpix/Tileset/Tileset.png" id="2_c0r4e"]
 [ext_resource type="Texture2D" uid="uid://c8puol58oqhtd" path="res://Assets/craftpix/Tileset/Tileset_Borders.png" id="3_m0h5h"]
@@ -698,6 +699,7 @@ sources/3 = SubResource("TileSetAtlasSource_ilsv2")
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_pwe8y"]
 
 [node name="Node2D" type="Node2D" unique_id=191225613]
+script = ExtResource("1_bvs0b")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2136072003]
 unique_name_in_owner = true
