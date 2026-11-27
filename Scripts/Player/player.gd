@@ -197,8 +197,6 @@ func update_flip_h() -> void :
 	elif velocity.x < -0.1 :
 		if not animation_sprite.flip_h :
 			animation_sprite.flip_h = true
-			if shift_timer.is_stopped() :
-				shift_timer.start()
 			PlayerManager.flip_h = animation_sprite.flip_h
 	
 func _unhandled_input(event: InputEvent) -> void:
@@ -228,6 +226,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("shift") and not is_player_dead and state != STATE.HURT and can_use_shift :
 		PlayerManager.shift_signal.emit()
 		can_use_shift = false
+		if shift_timer.is_stopped() :
+			shift_timer.start()
 		
 	if event.is_action_pressed("pause") and not is_player_dead and state !=STATE.HURT and not get_tree().paused :
 		pause_game_function()
@@ -341,6 +341,10 @@ func shift_timer_timeout() -> void :
 	if is_player_dead : 
 		return
 	can_use_shift = true
+	# DEBUG BEGIN
+	if OS.is_debug_build() :
+		print("shift finish")
+	# DEBUG END
 
 #--------------------------------- stomp jump part
 
