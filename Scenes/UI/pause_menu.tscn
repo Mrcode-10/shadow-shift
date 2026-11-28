@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cl12sqt10r0rx" path="res://Scripts/UI/pause_menu.gd" id="1_8rf44"]
 [ext_resource type="FontFile" uid="uid://c8ycvar6p1op3" path="res://Assets/fonts/VT323-Regular.ttf" id="1_rrvs5"]
+[ext_resource type="AudioStream" uid="uid://dus8v0l2q4lfk" path="res://Assets/sounds/[GOOD VIBE Upbeat Pixel Pop] Life is full of Joy.wav" id="3_r2i2h"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8rf44"]
 bg_color = Color(0.27450982, 0.27450982, 0.27450982, 1)
@@ -104,5 +105,10 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_r2i2h")
 theme_override_styles/hover = SubResource("StyleBoxFlat_oykix")
 text = "QUIT GAME"
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=783949309]
+stream = ExtResource("3_r2i2h")
+autoplay = true
+
 [connection signal="pressed" from="ColorRect/VBoxContainer/ResumeCenterContainer/ResumeButton" to="." method="resume_game_button"]
 [connection signal="pressed" from="ColorRect/VBoxContainer/QuitCenterContainer/QuitButton" to="." method="quit_game_button"]
+[connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]
