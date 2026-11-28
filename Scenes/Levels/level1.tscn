@@ -700,6 +700,9 @@ sources/3 = SubResource("TileSetAtlasSource_ilsv2")
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_pwe8y"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gtiic"]
+size = Vector2(170, 2584.5)
+
 [node name="Node2D" type="Node2D" unique_id=191225613]
 script = ExtResource("1_bvs0b")
 
@@ -1069,5 +1072,19 @@ position = Vector2(16624, 2432)
 stream = ExtResource("20_u45xj")
 autoplay = true
 parameters/looping = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1357772807]
+position = Vector2(-163, 75)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=215980998]
+position = Vector2(86, 1218.75)
+shape = SubResource("RectangleShape2D_gtiic")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="." unique_id=265742662]
+position = Vector2(17748, 102)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2" unique_id=2107975356]
+position = Vector2(86, 1218.75)
+shape = SubResource("RectangleShape2D_gtiic")
 
 [connection signal="body_entered" from="DeadZoneArea2D" to="DeadZoneArea2D" method="dead_zone_player_entered"]
