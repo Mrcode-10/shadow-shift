@@ -37,6 +37,7 @@ var player : Node2D
 var is_edge : bool = false
 var should_move : bool = false
 var can_attack : bool = false
+var is_dead : bool = false
 
 func _ready() -> void:
 	
@@ -110,6 +111,8 @@ func change_direction() -> void :
 		
 func change_state(new_state : STATE) -> void:
 	if new_state != state and state != STATE.DEATH :
+		if state == STATE.HURT and new_state != STATE.DEATH :
+			is_invulnerable_or_dead = false
 		state = new_state
 		match_state()
 		
@@ -201,10 +204,11 @@ func take_damage(damage_number:float) -> void :
 	if OS.is_debug_build():
 		print("Enemy 3 get damage from player : enemy side")
 	# DEBUG END
-	if not is_invulnerable_or_dead :
+	if not is_invulnerable_or_dead and not is_dead :
 		health = maxf(health-damage_number,0)
 		# Death handle
 		if health == 0 :
+			is_dead = true
 			can_attack = false
 			finish_attack()
 			death()
