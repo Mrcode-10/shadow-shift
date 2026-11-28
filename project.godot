@@ -19,7 +19,6 @@ config/icon="res://icon.svg"
 
 PlayerManager="*uid://388oofgybhhq"
 BossManager="*uid://cloywubr1s2pc"
-PauseCanvasLayer="*uid://dgokvkc4n8j6k"
 
 [display]
 
