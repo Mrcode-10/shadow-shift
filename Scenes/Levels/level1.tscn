@@ -18,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://41lke7pw0h1w" path="res://Scenes/Traps/trap4.tscn" id="13_ryjqc"]
 [ext_resource type="PackedScene" uid="uid://bhfg8h6d0gh0f" path="res://Scenes/Traps/trap5.tscn" id="14_xe7un"]
 [ext_resource type="Script" uid="uid://vif03ke5h4pf" path="res://Scripts/dead_zone.gd" id="15_ryjqc"]
+[ext_resource type="PackedScene" uid="uid://crf7kdae5d70q" path="res://Scenes/Objects/door.tscn" id="19_syfhk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i36j2"]
 texture = ExtResource("1_0xrym")
@@ -914,7 +915,8 @@ position = Vector2(1232.0001, 592)
 rotation = 3.1415927
 
 [node name="PlayerCharacterBody2D" parent="." unique_id=264225744 instance=ExtResource("6_m0h5h")]
-position = Vector2(136, 472.00003)
+z_index = 10
+position = Vector2(208, 376)
 
 [node name="Camera2D" type="Camera2D" parent="PlayerCharacterBody2D" unique_id=1361970713]
 position = Vector2(-0.6665039, -0.99998474)
@@ -1058,5 +1060,8 @@ position = Vector2(0, 3464)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LevelEndStaticBody2D" unique_id=1913564078]
 shape = SubResource("WorldBoundaryShape2D_pwe8y")
+
+[node name="DoorArea" parent="." unique_id=663707445 instance=ExtResource("19_syfhk")]
+position = Vector2(16624, 2432)
 
 [connection signal="body_entered" from="DeadZoneArea2D" to="DeadZoneArea2D" method="dead_zone_player_entered"]

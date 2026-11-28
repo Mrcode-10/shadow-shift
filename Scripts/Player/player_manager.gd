@@ -14,7 +14,7 @@ var player_alive : bool = true
 
 var player_can_get_damage : bool = true
 
-var has_key : bool = false
+var has_key : bool = true
 
 var flip_h = false
 
