@@ -13,6 +13,8 @@
 [ext_resource type="PackedScene" uid="uid://bddvlpuiuc27w" path="res://Scenes/Objects/box2.tscn" id="10_tgqw5"]
 [ext_resource type="PackedScene" uid="uid://cqhfbc5n61idy" path="res://Scenes/Objects/box3.tscn" id="11_qb14d"]
 [ext_resource type="PackedScene" uid="uid://bly5xq82h7cy4" path="res://Scenes/Objects/box4.tscn" id="12_funn6"]
+[ext_resource type="PackedScene" uid="uid://bhfg8h6d0gh0f" path="res://Scenes/Traps/trap5.tscn" id="14_qb14d"]
+[ext_resource type="PackedScene" uid="uid://vffnmsmle86r" path="res://Scenes/Traps/trap1.tscn" id="15_funn6"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ag44t"]
 texture = ExtResource("1_7arlj")
@@ -608,14 +610,60 @@ position = Vector2(935, 780)
 speed = 200.0
 can_chase_player = true
 
-[node name="Box1StaticBody2D" parent="." unique_id=776907997 instance=ExtResource("9_4wh5o")]
+[node name="TrapNodes" type="Node2D" parent="." unique_id=1161623552]
+
+[node name="StaticBody2D2" parent="TrapNodes" unique_id=135394424 instance=ExtResource("15_funn6")]
+position = Vector2(688, 792)
+
+[node name="StaticBody2D3" parent="TrapNodes" unique_id=209582490 instance=ExtResource("15_funn6")]
+position = Vector2(592, 792)
+
+[node name="StaticBody2D4" parent="TrapNodes" unique_id=1350110661 instance=ExtResource("15_funn6")]
+position = Vector2(496, 792)
+
+[node name="StaticBody2D5" parent="TrapNodes" unique_id=2037455764 instance=ExtResource("15_funn6")]
+position = Vector2(400.00003, 792)
+
+[node name="StaticBody2D6" parent="TrapNodes" unique_id=1028651703 instance=ExtResource("15_funn6")]
+position = Vector2(1240, 792)
+
+[node name="StaticBody2D7" parent="TrapNodes" unique_id=1023857458 instance=ExtResource("15_funn6")]
+position = Vector2(1336, 792)
+
+[node name="StaticBody2D8" parent="TrapNodes" unique_id=154892663 instance=ExtResource("15_funn6")]
+position = Vector2(1432, 792)
+
+[node name="StaticBody2D9" parent="TrapNodes" unique_id=1951246948 instance=ExtResource("15_funn6")]
+position = Vector2(1528, 792)
+
+[node name="Trap5StaticBody2D4" parent="TrapNodes" unique_id=1649617446 instance=ExtResource("14_qb14d")]
+position = Vector2(760, 608)
+
+[node name="Trap5StaticBody2D6" parent="TrapNodes" unique_id=1256681822 instance=ExtResource("14_qb14d")]
+position = Vector2(304, 608)
+
+[node name="Trap5StaticBody2D3" parent="TrapNodes" unique_id=245715112 instance=ExtResource("14_qb14d")]
+position = Vector2(1144, 616)
+
+[node name="Trap5StaticBody2D5" parent="TrapNodes" unique_id=1036608393 instance=ExtResource("14_qb14d")]
+position = Vector2(1640, 608)
+
+[node name="BoxNodes" type="Node2D" parent="." unique_id=1257454880]
+
+[node name="Box1StaticBody2D" parent="BoxNodes" unique_id=776907997 instance=ExtResource("9_4wh5o")]
 position = Vector2(192, 390)
 
-[node name="StaticBody2D" parent="." unique_id=1634315653 instance=ExtResource("10_tgqw5")]
-position = Vector2(856, 393)
+[node name="StaticBody2D" parent="BoxNodes" unique_id=1634315653 instance=ExtResource("10_tgqw5")]
+position = Vector2(896, 392)
 
-[node name="Box3StaticBody2D" parent="." unique_id=1267224998 instance=ExtResource("11_qb14d")]
-position = Vector2(1060, 389)
+[node name="Box3StaticBody2D" parent="BoxNodes" unique_id=1267224998 instance=ExtResource("11_qb14d")]
+position = Vector2(1016, 392)
 
-[node name="Box4StaticBody2D" parent="." unique_id=1984985999 instance=ExtResource("12_funn6")]
+[node name="Box4StaticBody2D" parent="BoxNodes" unique_id=1984985999 instance=ExtResource("12_funn6")]
 position = Vector2(1742, 385)
+
+[node name="Box4StaticBody2D2" parent="BoxNodes" unique_id=469883181 instance=ExtResource("12_funn6")]
+position = Vector2(480, 496)
+
+[node name="Box4StaticBody2D3" parent="BoxNodes" unique_id=571135343 instance=ExtResource("12_funn6")]
+position = Vector2(1448, 496)
