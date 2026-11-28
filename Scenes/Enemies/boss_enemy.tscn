@@ -273,6 +273,11 @@ size = Vector2(20, 26.333334)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_grtj2"]
 size = Vector2(20, 1.3333321)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_grtj2"]
+bg_color = Color(0.1764706, 0.1764706, 0.1764706, 0.42352942)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c6l1i"]
+
 [node name="BossCharacterBody2D" type="CharacterBody2D" unique_id=1454301671]
 scale = Vector2(3, 3)
 collision_layer = 4
@@ -282,10 +287,8 @@ first_attack_delay = 0.4
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2141521838]
 sprite_frames = SubResource("SpriteFrames_r0aaa")
-animation = &"attack"
+animation = &"idle"
 autoplay = "idle"
-frame = 6
-frame_progress = 0.20559709
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2053063980]
 position = Vector2(0, 2.3333333)
@@ -362,6 +365,17 @@ collision_layer = 0
 [node name="CollisionShapeBottom" type="CollisionShape2D" parent="RigidBody2D" unique_id=1112964302]
 position = Vector2(-4.3333335, 9.666667)
 shape = SubResource("RectangleShape2D_grtj2")
+
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=1765252432]
+custom_minimum_size = Vector2(60, 5)
+custom_maximum_size = Vector2(60, 5)
+offset_left = -30.000002
+offset_top = -23.666668
+offset_right = 29.999998
+offset_bottom = -18.666668
+theme_override_styles/background = SubResource("StyleBoxFlat_grtj2")
+theme_override_styles/fill = SubResource("StyleBoxFlat_c6l1i")
+show_percentage = false
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_enemy_animated_sprite_2d_animation_finished"]
 [connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]

@@ -38,10 +38,15 @@ var is_edge : bool = false
 var should_move : bool = false
 var can_attack : bool = false
 var is_dead : bool = false
+@onready var progress_bar : ProgressBar = $ProgressBar
+var tween_progress_bar_animation : Tween
+@export var time_progress_animation_duration : float = 0.4
 
 func _ready() -> void:
-	
 	health = max_health
+	
+	preparation_progress_bar()
+	
 	PlayerManager.shift_signal.connect(shift_function)
 	
 	timer_attack.wait_time = attack_timer
@@ -206,6 +211,7 @@ func take_damage(damage_number:float) -> void :
 	# DEBUG END
 	if not is_invulnerable_or_dead and not is_dead :
 		health = maxf(health-damage_number,0)
+		animation_progress_bar()
 		# Death handle
 		if health == 0 :
 			is_dead = true
@@ -375,3 +381,18 @@ func _on_shift_area_area_entered(area: Area2D) -> void:
 
 func _on_shift_area_area_exited(area: Area2D) -> void:
 	can_use_shift = false
+
+
+#--------------------------- Progress Bar
+func preparation_progress_bar() -> void :
+	# set value and max value
+	progress_bar.max_value = max_health
+	progress_bar.value = health
+	
+func animation_progress_bar() -> void :
+	if tween_progress_bar_animation and tween_progress_bar_animation.is_valid() :
+		tween_progress_bar_animation.kill()
+	tween_progress_bar_animation = create_tween()
+	tween_progress_bar_animation.tween_property(
+		progress_bar , "value" , health , time_progress_animation_duration
+	)
