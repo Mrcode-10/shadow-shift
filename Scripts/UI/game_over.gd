@@ -19,4 +19,4 @@ func _unhandled_input(event: InputEvent) -> void:
 				
 			PlayerManager.LEVELS.BOSS_LEVEL :
 				# TODO write this part
-				pass
+				get_tree().change_scene_to_file("res://Scenes/Levels/boss_level.tscn")

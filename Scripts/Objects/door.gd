@@ -13,8 +13,7 @@ var can_change_scene : bool = false
 var state : STATE = STATE.DEFAULT
 var player : Node2D = null
 var is_player_in_open_area : bool = false
-# TODO change level to correct value
-var next_level = preload("res://Test/test_level.tscn")
+var next_level = preload("res://Scenes/Levels/boss_level.tscn")
 
 func change_state(new_state : STATE) :
 	if state != new_state :
@@ -38,7 +37,7 @@ func _on_body_entered(body: Node2D) -> void:
 		if OS.is_debug_build() :
 			print("level changed")
 		# END DEBUG
-		get_tree().reload_current_scene()
+		get_tree().change_scene_to_packed(next_level)
 
 
 func _on_body_exited(body: Node2D) -> void:
