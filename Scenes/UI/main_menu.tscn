@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://darrw6myot3f1" path="res://Assets/pixel_arts/youtube_logo.png" id="2_u300l"]
 [ext_resource type="Texture2D" uid="uid://dgpldo5mmpisf" path="res://Assets/pixel_arts/srudio_logo_v2.png" id="3_cboe8"]
 [ext_resource type="Texture2D" uid="uid://jgj10qlduf56" path="res://Assets/pixel_arts/git_hub_logo.png" id="4_mnfja"]
+[ext_resource type="AudioStream" uid="uid://dpc0v1raikti2" path="res://Assets/sounds/[GOOD VIBE Upbeat Rock] Jelly Blob.wav" id="6_4pqbp"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gtiic"]
 bg_color = Color(0.27450982, 0.27450982, 0.27450982, 1)
@@ -152,8 +153,13 @@ texture_disabled = ExtResource("4_mnfja")
 texture_focused = ExtResource("4_mnfja")
 stretch_mode = 0
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=677048230]
+stream = ExtResource("6_4pqbp")
+autoplay = true
+
 [connection signal="pressed" from="VBoxContainer/PlayCenterContainer/PlayGameButton" to="." method="_on_play_game_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/QuitCenterContainer/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/YouTubeButton" to="." method="_on_you_tube_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/StudioButton" to="." method="_on_studio_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/GitHubButton" to="." method="_on_git_hub_button_pressed"]
+[connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]
