@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://bhfg8h6d0gh0f" path="res://Scenes/Traps/trap5.tscn" id="14_xe7un"]
 [ext_resource type="Script" uid="uid://vif03ke5h4pf" path="res://Scripts/dead_zone.gd" id="15_ryjqc"]
 [ext_resource type="PackedScene" uid="uid://crf7kdae5d70q" path="res://Scenes/Objects/door.tscn" id="19_syfhk"]
+[ext_resource type="AudioStream" uid="uid://d3glit4ud0dql" path="res://Assets/sounds/Three Red Hearts - Candy.ogg" id="20_u45xj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i36j2"]
 texture = ExtResource("1_0xrym")
@@ -1063,5 +1064,10 @@ shape = SubResource("WorldBoundaryShape2D_pwe8y")
 
 [node name="DoorArea" parent="." unique_id=663707445 instance=ExtResource("19_syfhk")]
 position = Vector2(16624, 2432)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1542697984]
+stream = ExtResource("20_u45xj")
+autoplay = true
+parameters/looping = true
 
 [connection signal="body_entered" from="DeadZoneArea2D" to="DeadZoneArea2D" method="dead_zone_player_entered"]
