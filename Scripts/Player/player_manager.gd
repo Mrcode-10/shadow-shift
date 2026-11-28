@@ -9,6 +9,7 @@ var level : LEVELS = LEVELS.LEVEL1
 var player_damage : float = 20
 
 var invincibility_frames_time : float = 0.5
+var invincibility_id : int =  0
 
 var player_alive : bool = true
 
@@ -38,7 +39,7 @@ func decrease_health(value : float ) -> void :
 		health = maxf(0 , health - value)
 		if health == 0 :
 			player_death_signal.emit()
-			player_alive = false
+			#player_alive = false
 		
 		else :
 			player_get_hurt_signal.emit()
@@ -47,6 +48,7 @@ func decrease_health(value : float ) -> void :
 		if OS.is_debug_build() :
 			print("player can't get hurt now ")
 			print("player health : " + str(health))
+			print("decrease value is : " + str(value))
 		invincibility_frames()
 	
 func increase_health(value : float) -> void :
@@ -59,21 +61,26 @@ func increase_playing_timer() -> void :
 	playing_time += 1
 
 func reset() -> void :
+	invincibility_id += 1
 	health = 100
 	killed_enemy_number = 0
 	playing_time = 0
 	player_alive = true
 	player_can_get_damage = true
-	has_key = false
+	has_key = true
 
 func  invincibility_frames() -> void :
-	#  Add a short invincibility window after taking damage 
-	await get_tree().create_timer(invincibility_frames_time).timeout
+	##  Add a short invincibility window after taking damage 
+	invincibility_id += 1
+	var my_id := invincibility_id
+	await get_tree().create_timer(invincibility_frames_time , true).timeout
+	if my_id != invincibility_id :
+		return
 	player_can_get_damage = true
 	# DEBUG
 	if OS.is_debug_build() :
 		print("player can get hurt now ")
-	 
+	pass
 	
 signal change_health(value)
 signal change_killed_enemy_number(value)
