@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://bly5xq82h7cy4" path="res://Scenes/Objects/box4.tscn" id="12_funn6"]
 [ext_resource type="PackedScene" uid="uid://bhfg8h6d0gh0f" path="res://Scenes/Traps/trap5.tscn" id="14_qb14d"]
 [ext_resource type="PackedScene" uid="uid://vffnmsmle86r" path="res://Scenes/Traps/trap1.tscn" id="15_funn6"]
+[ext_resource type="AudioStream" uid="uid://drp4hta4hlu83" path="res://Assets/sounds/Three Red Hearts - Out of Time.ogg" id="16_kpbsn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ag44t"]
 texture = ExtResource("1_7arlj")
@@ -664,6 +665,11 @@ position = Vector2(480, 496)
 position = Vector2(1448, 496)
 
 [node name="BossCharacterBody2D" parent="." unique_id=1454301671 instance=ExtResource("7_0aonc")]
-position = Vector2(952, 896)
+position = Vector2(951, 896.00006)
 speed = 200.0
 can_chase_player = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=128453960]
+stream = ExtResource("16_kpbsn")
+autoplay = true
+parameters/looping = true
